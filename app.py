@@ -1,25 +1,21 @@
 import os
-import numpy as np
 
 import cv2
-from PIL import Image
-
+import tensorflow as tf
 import keras
+import numpy as np
+from PIL import Image
+from flask import Flask, request, session, render_template
+from flask_dropzone import Dropzone
 from keras.applications import imagenet_utils
 from keras.preprocessing.image import img_to_array
-
 from lime.lime_image import LimeImageExplainer
 from skimage.segmentation import mark_boundaries
 
-from flask import Flask, request, session, render_template
-from flask_dropzone import Dropzone
-
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 app = Flask(__name__)
 dropzone = Dropzone()
-
 app.config.update(
     SECRET_KEY='my secret key',
 
@@ -31,10 +27,10 @@ app.config.update(
     DROPZONE_MAX_FILE_SIZE=10,
     DROPZONE_MAX_FILES=1,
 )
-
 dropzone.init_app(app)
 
 model = None
+
 classes = [
     '감수', '결명자', '관목통', '구기자', '나복자',
     '대극', '대황(당고)', '대황(약용)', '대황(종대황)', '도인',
@@ -58,8 +54,11 @@ def prepare_image(image, target):
 @app.route('/load_model/')
 def load_model():
     global model
+    global graph
     if model is None:
-        model = keras.models.load_model('keras_resnet50.h5')
+        model = tf.keras.models.load_model('stdX_test_change_Resnet.h5')
+        graph = tf.get_default_graph()
+    return 'Model loaded'
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -75,6 +74,10 @@ def upload():
 
 @app.route('/result/')
 def result():
+    global model
+    if model is None:
+        model = keras.models.load_model('keras_resnet50.h5')
+
     image = Image.open(session['image_path'])
     image = prepare_image(image, target=(224, 224))
 
@@ -90,11 +93,14 @@ def result():
                                                 hide_rest=True)
     features = mark_boundaries(image, mask)
 
+    print(np.argmax(preds), explanation.top_labels[0])
+
     data = {
         'preds': classes[np.argmax(preds)],
         'temp': temp,
         'mask': mask,
-        'features': features
+        'features': features,
+        'out': classes[explanation.top_labels[0]]
     }
 
     return render_template('result.html', **data)
