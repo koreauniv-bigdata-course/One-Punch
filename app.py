@@ -50,7 +50,7 @@ def create_all():
 
 @app.route('/result/')
 def result():
-    result_id = 1
+    result_id = 2
 
     herb = Herb.query.filter_by(herb_id=result_id).first()
     category = Category.query.filter_by(category_id=herb.category_id_fk).first()

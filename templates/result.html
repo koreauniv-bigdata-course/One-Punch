@@ -7,6 +7,7 @@
 <body>
 
 <ul>
+    {# 허브 #}
     <li>{% if herb.is_poison == 1 %}{{ "독성약재입니다" }}{% endif %}</li>
     <li>{{ "약재이름 : "+ herb.herb_name }}</li>
     <li>{{ "기원 : "+ herb.origin }}</li>
@@ -26,7 +27,7 @@
 {#위치테이블#}
 {% for location in location_list %}
     <ul>
-        <li>{{ location.country +" "+ location.location_name }}</li>
+        <li>{{ location.country}}&nbsp; {% if location.location_name %}{{location.location_name }}{% endif %}</li>
         <li>{{ location.pos_x }}</li>
         <li>{{ location.pos_y }}</li>
     </ul>
