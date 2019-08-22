@@ -47,6 +47,7 @@ def create_all():
     return "create OK"
 
 
+
 @app.route('/')
 @app.route('/index/')
 def index():
