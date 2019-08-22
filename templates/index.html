@@ -85,7 +85,8 @@
         <div style= "position:relative; margin:auto; outline: 4px dashed #8add66; outline-offset: -15px; width:400px; height: 350px; z-index:5;">
             {{ dropzone.create(action='upload') }}
             {{ dropzone.load_js() }}
-            {{ dropzone.config() }}{{ dropzone.config(redirect_url=url_for('result')) }}
+            {{ dropzone.config() }}
+{#            {{ dropzone.config(redirect_url=url_for('result')) }}#}
         </div>
 
         <div style="position: absolute; right:0%; bottom:50px; z-index:0">
