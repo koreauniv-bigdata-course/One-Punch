@@ -49,30 +49,42 @@ def create_all():
 
 
 @app.route('/result/')
-def result():
+@app.route('/result/<herb_id>')
+def result(herb_id):
     result_id = 2
+    if herb_id:
+        result_id=herb_id
 
     herb = Herb.query.filter_by(herb_id=result_id).first()
     category = Category.query.filter_by(category_id=herb.category_id_fk).first()
 
     group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
     group_name = group.group_name
+    # 유사약재들 처리
+    # 1. 해당 유사약재그룹id를 가진 약재 모두다 조회
     group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
-    group_herb_names = [ _.herb_name for _ in group_herbs]
+    # 2. 유사약재허브들 객체들에서 이름, 이미지경로 가져오기
+    groups = [ (_.herb_name, _.image_path) for _ in group_herbs]
+
 
     location_list = Location.query.filter_by(herb_id_fk=result_id).all()
-    location_list
+    # 좌표들의 평균구하기
+    x_avg, y_avg = 0., 0.
+    for x, y in [ (location.pos_x, location.pos_y) for location in location_list]:
+        x_avg += x
+        y_avg += y
+    x_avg /= 3
+    y_avg /= 3
 
     news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
-    print(news_list)
-
 
     data = {
         'herb': herb,
         'category' : category,
         'group_name' : group_name,
-        'group_herb_names' : group_herb_names,
+        'groups' : groups, # 튜플로 name, img_path가 담김
         'location_list' : location_list,
+        'location_avg' : (x_avg, y_avg), # 백단에서 계산된 x, y좌표들의 평균
         'news_list' : news_list
     }
 

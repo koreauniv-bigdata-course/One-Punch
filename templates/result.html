@@ -18,9 +18,11 @@
     {#카테고리table#}
     <li>{{ "분류 : "+ category.category_name}}</li>
     ---
+    <br/>
     {#그룹table#}
-    {% for g_h_name in group_herb_names %}
-        <li>{{ "유사약재 : "+ g_h_name}}</li>
+    {% for (name, img_path) in groups %}
+        <img src="{{ img_path }}" alt="{{ img_path }}">
+        <li>{{ "유사약재 : "+ name}}</li>
     {% endfor %}
 </ul>
 ---
@@ -32,6 +34,7 @@
         <li>{{ location.pos_y }}</li>
     </ul>
 {% endfor %}
+    <p>좌표들의 평균 : {{ location_avg }}</p>
 ---
 {#뉴스테이블#}
 {% for news in news_list %}
