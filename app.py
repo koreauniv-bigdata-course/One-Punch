@@ -83,7 +83,7 @@ def result(herb_id):
         'herb': herb,
         'category' : category,
         'group_name' : group_name,
-        'groups' : groups, # 튜플로 name, img_path가 담김
+        'groups' : groups, # 튜플로 유사그룹 name, img_path가 담김
         'location_list' : location_list,
         'location_avg' : (x_avg, y_avg), # 백단에서 계산된 x, y좌표들의 평균
         'news_list' : news_list
