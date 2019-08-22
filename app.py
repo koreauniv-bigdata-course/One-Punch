@@ -73,8 +73,9 @@ def result(herb_id):
     for x, y in [ (location.pos_x, location.pos_y) for location in location_list]:
         x_avg += x
         y_avg += y
-    x_avg /= 3
-    y_avg /= 3
+    n = len(location_list)
+    x_avg /= n
+    y_avg /= n
 
     news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
 
