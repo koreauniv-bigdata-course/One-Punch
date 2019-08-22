@@ -79,8 +79,7 @@ class News(db.Model):
     herb_id_fk = db.Column(db.Integer, db.ForeignKey('herb.herb_id'))
     # 일반속성
     title = db.Column(db.Text)
-    date = db.Column(db.DateTime)
-    content = db.Column(db.Text)
+    date = db.Column(db.String(100))
     url = db.Column(db.String(255))
 
     def __repr__(self):
@@ -94,7 +93,7 @@ class Journal(db.Model):
     herb_id_fk = db.Column(db.Integer, db.ForeignKey('herb.herb_id'))
     # 일반속성
     title = db.Column(db.Text)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.String(100))
     url = db.Column(db.String(255))
 
     def __repr__(self):

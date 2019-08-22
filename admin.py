@@ -34,7 +34,7 @@ class LocationView(ModelView):
 class NewsView(ModelView):
     can_view_details = True
     form_columns = ['news_id', 'herb_id_fk',
-                    'title', 'date', 'content', 'url']
+                    'title', 'date', 'url']
 
 
 class JournalView(ModelView):

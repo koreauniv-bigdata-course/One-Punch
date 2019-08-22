@@ -32,6 +32,7 @@ app.config.update(
     DROPZONE_MAX_FILES=1,
     # admin, sqlalchemy config:
     SQLALCHEMY_DATABASE_URI='sqlite:///herb_medicine.db',
+    SQLALCHEMY_TRACK_MODIFICATIONS = False,
     FLASK_ADMIN_SWATCH='cosmo',  # admin 테마 지정
     SECRET_KEY='my_secret_key',  # admin권한을 위한 키생성
 
@@ -46,6 +47,36 @@ def create_all():
     db.create_all()
     return "create OK"
 
+
+@app.route('/result/')
+def result():
+    result_id = 1
+
+    herb = Herb.query.filter_by(herb_id=result_id).first()
+    category = Category.query.filter_by(category_id=herb.category_id_fk).first()
+
+    group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
+    group_name = group.group_name
+    group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
+    group_herb_names = [ _.herb_name for _ in group_herbs]
+
+    location_list = Location.query.filter_by(herb_id_fk=result_id).all()
+    location_list
+
+    news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
+    print(news_list)
+
+
+    data = {
+        'herb': herb,
+        'category' : category,
+        'group_name' : group_name,
+        'group_herb_names' : group_herb_names,
+        'location_list' : location_list,
+        'news_list' : news_list
+    }
+
+    return render_template('result.html', **data)
 
 
 @app.route('/')
