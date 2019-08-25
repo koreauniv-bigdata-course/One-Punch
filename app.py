@@ -50,7 +50,7 @@ def create_all():
 
 @app.route('/result/')
 @app.route('/result/<herb_id>')
-def result(herb_id):
+def result(herb_id=2):
     result_id = 2
     if herb_id:
         result_id=herb_id
@@ -89,7 +89,7 @@ def result(herb_id):
         'news_list' : news_list
     }
 
-    return render_template('result.html', **data)
+    return render_template('app.html', **data)
 
 
 @app.route('/')
