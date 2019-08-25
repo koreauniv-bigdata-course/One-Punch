@@ -1,18 +1,76 @@
+<head>
+    <style>
+        .scrollbar-primary::-webkit-scrollbar {
+            width: 8px;
+            background-color: #F5F5F5; }
+        .scrollbar-primary::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+            background-color: #ebebeb;
+        }
+    </style>
+
+
+</head>
 {% extends "layout.html" %}
 
 
 <!--약재정보-->
 {% block herb %}
+    <div class="row">
+        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;font-size:20px; ">{{ herb.herb_name  }}</div></div>
+        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px;"> {% if herb.is_poison == 1 %}{{ "독성약재" }}{% else %}일반약재{% endif %} </div></div>
+        <div class="col-xs-6 col-md-4"></div>
+    </div>
+
+    <!--약재정보-->
     {# 허브 #}
-    <ul>
-        <li>{% if herb.is_poison == 1 %}{{ "독성약재입니다" }}{% else %}일반약재입니다.{% endif %}</li>
-        <li>{{ "약재이름 : "+ herb.herb_name }}</li>
-        <li>{{ "분류 : "+ category.category_name}}</li>
-        <li>{{ "기원 : "+ herb.origin }}</li>
-        <li>{{ "주치 : "+ herb.major_effect }}</li>
-        <li>{{ "효능 :  "+ herb.effect | truncate(20) }}</li>
-        <li>{{ "외관상 감별 : "+ herb.figure_feature | truncate(20) }}</li>
-    </ul>
+    <div class="scrollbar scrollbar-primary" style="width: 100%; height:170px; overflow-y:auto; overflow-x: hidden;  margin-bottom: 10px;">
+        <table class="table table-striped">
+            <colgroup>
+                <col style= "width: 20%" />
+                <col width="90" />
+            </colgroup>
+            <thead>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>분류</td>
+                <td>{{ category.category_name }}</td>
+            </tr>
+
+            <tr>
+                <td>기원</td>
+                <td>{{ herb.origin }}</td>
+            </tr>
+
+            <tr>
+                <td>주치</td>
+                <td style="font-size: 14px;">{{ herb.major_effect }}</td>
+            </tr>
+
+            <tr>
+                <td>효능</td>
+                <td style="font-size: 14px;">{{ herb.effect | truncate(100) }}</td>
+            </tr>
+
+            <tr>
+                <td style="font-size:14px;">외관상 특징</td>
+                <td style="font-size: 14px;">{{ herb.figure_feature | truncate(100) }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {#        <ul>#}
+    {#            <li>{% if herb.is_poison == 1 %}{{ "독성약재입니다" }}{% else %}일반약재입니다.{% endif %}</li>#}
+    {#            <li>{{ "분류 : "+ category.category_name}}</li>#}
+    {#            <li>{{ "기원 : "+ herb.origin }}</li>#}
+    {#            <li>{{ "주치 : "+ herb.major_effect }}</li>#}
+    {#            <li>{{ "효능 :  "+ herb.effect | truncate(20) }}</li>#}
+    {#            <li>{{ "외관상 감별 : "+ herb.figure_feature | truncate(20) }}</li>#}
+    {#        </ul>#}
 {% endblock %}
 
 
@@ -30,8 +88,8 @@
 {% block similar_images %}
     {% for (name, img_path) in groups %}
         {% if name != herb.herb_name %}
-        <img src="{{ img_path }}" alt="{{ img_path }}">
-        <li>{{ "유사약재 : "+ name}}</li>
+            <img src="{{ img_path }}" alt="{{ img_path }}">
+            <li>{{ "유사약재 : "+ name}}</li>
         {% endif %}
     {% endfor %}
 {% endblock %}

@@ -11,6 +11,18 @@
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/sb-admin-2.min.css') }}">
     <style>
+        .donut-inner {
+            margin-top: -140px;
+            margin-bottom: 100px;
+            margin-left: 40px;
+        }
+        .donut-inner h5 {
+            margin-bottom: 5px;
+            margin-top: 0;
+            font-size: 28px;
+            color: #4e73df;
+            font-weight: bolder;
+        }
 
     </style>
 
@@ -49,12 +61,25 @@
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4 ">
                         <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body" style="height:19rem;">
+                            <div class="card-body" style="height:23rem;">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
+                                    <div class="col-auto" style="margin: auto; margin-bottom:-10px;">
                                         <!--insert 약재이미지 block-->
-                                        {% block main_image %}
-                                        {% endblock %}
+{#                                        {% block main_image %}#}
+{#                                        {% endblock %}#}
+                                        <img src="{{ url_for('static', filename="img/1.png") }}" style="width:200px; height:150px; margin-bottom: 10px;">
+                                    </div>
+                                    <div class="col-auto" style="margin:auto;">
+                                        <!--독성 확률 그래프-->
+{#                                        {% block predict_graph %}#}
+{#                                        {% endblock %}#}
+                                        <div class="chart-pie pt-4 pb-2" style="margin-top: -40px;">
+                                            <canvas id="myPieChart" style="width:150px; margin:0px"></canvas>
+                                            <div class="donut-inner">
+                                                <!--독성 확률 퍼센트 -->
+                                                <h5>90 %</h5>
+                                            </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -64,24 +89,28 @@
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xs-12 col-sm-6 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body" >
+                            <div class="card-body" style="margin-bottom: -40px" >
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;">약재이름</div>
-                                        <!--약재정보-->
                                         {% block herb %}
-                                        {% endblock %}
-                                    </div>
-                                    <div class="col-auto">
-                                        <!--독성 확률 그래프-->
-                                        {% block predict_graph %}
                                         {% endblock %}
                                     </div>
                                 </div>
                                 <div class="row no-gutters align-items-center">
+                                    <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="font-size:15px; margin-top:0px;">유사약재</div>
                                     <!--이미지-->
-                                    {% block similar_images %}
-                                    {% endblock %}
+{#                                    {% block similar_images %}#}
+{#                                    {% endblock %}#}
+                                    <table class="table table-borderless" style="margin-top:-7px;">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col"><img src="{{ url_for('static', filename="img/1.png") }}" style="width:120px; height:100px"></th>
+                                            <th scope="col"><img src="{{ url_for('static', filename="img/2.png") }}" style="width:120px; height:100px"></th>
+                                            <th scope="col"><img src="{{ url_for('static', filename="img/3.png") }}" style="width:120px; height:100px"></th>
+                                            <th scope="col"><img src="{{ url_for('static', filename="img/4.png") }}" style="width:120px; height:100px"></th>
+                                        </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -93,11 +122,11 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-s font-weight-bold text-info text-uppercase mb-1" style="margin-top:-12px;">서식지</div>
+                                        <div class="text-s font-weight-bold text-info text-uppercase mb-1" style="margin-top:-12px;">Feature Map</div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <!--독성약재 map-->
-                                                {% block map %}
+                                                <!--Feature map-->
+                                                {% block featuremap %}
                                                 {% endblock %}
                                             </div>
                                         </div>
@@ -116,14 +145,15 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Feature map</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">최신 뉴스</h6>
                             </div>
                             <!-- Card Body -->
                             <div class="card-body" style="height:18rem">
                                 <div class="chart-area">
                                     <!--feature map-->
-                                    {% block featuremap %}
+                                    {% block news %}
                                     {% endblock %}
+
                                 </div>
                             </div>
                         </div>
@@ -134,14 +164,15 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">최신 뉴스</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">서식지</h6>
                             </div>
                             <!-- Card Body -->
                             <div class="card-body" style="height:18rem">
                                 <div class="chart-pie pt-4 pb-2">
-                                    <!--뉴스 크로울링-->
-                                    {% block news %}
+                                    <!--서식지 크로울링-->
+                                    {% block map %}
                                     {% endblock %}
+
                                 </div>
                             </div>
                         </div>
