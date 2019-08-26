@@ -2,6 +2,7 @@ import base64
 import hashlib
 import io
 import os
+import time
 
 import cv2
 from flask import Flask, request, session, render_template, redirect, url_for
@@ -43,7 +44,7 @@ for table, view in zip(table_list, view_list):
 
 
 def _create_identifier():
-    base = unicode("%s|%s".format((request.remote_addr,
+    base = unicode("%s|%s|%s".format((request.remote_addr, str(time.time()),
                                    request.headers.get("User-Agent")), 'utf8', errors='replace'))
     hsh = hashlib.md5()
     hsh.update(base.encode("utf8"))
