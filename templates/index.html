@@ -154,7 +154,7 @@
     Dropzone.autoDiscover = false;
 
     $(function () {
-        var myDropzone = new Dropzone("#my-dropzone");
+        var myDropzone = new Dropzone("#myDropzone");
         myDropzone.on("queuecomplete", function (file) {
             // Called when all files in the queue finish uploading.
             window.location = "{{ url_for('result') }}";
