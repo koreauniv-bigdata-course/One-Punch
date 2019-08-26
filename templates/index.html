@@ -124,7 +124,7 @@
             <div class="layer">
                 <form action="{{ url_for('result_form') }}" enctype="multipart/form-data" method="post">
                     {{ dropzone.create() }}
-                    <input type="submit" id="submit" value="Submit and Upload">
+                    <input type="submit" id="submit" value="Upload">
                 </form>
                 {{ dropzone.load_js() }}
                 {{ dropzone.config() }}
