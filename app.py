@@ -116,8 +116,6 @@ def lime():
 def result():
     if not session.get('id', None):
         return redirect('/')
-    if request.method == 'GET':
-        return redirect('/')
     else:
         image = request.files.get('file')
         filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
