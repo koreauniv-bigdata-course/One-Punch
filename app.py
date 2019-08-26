@@ -62,8 +62,10 @@ def load_model():
 
 @app.route('/')
 def upload():
+    if not session.get('origin_img_path', None):
+        session.pop('origin_img_path')
+    session.pop('id')
     session['id'] = _create_identifier()
-    session.pop('origin_img_path')
     return render_template('index.html')
 
 
