@@ -60,12 +60,9 @@ def load_model():
     return 'Model loaded'
 
 
-@app.route('/', methods=["POST","GET"])
+@app.route('/')
 def upload():
     session['id'] = _create_identifier()
-    if request.method == 'POST':
-        session['original_image'] = request.files.get('file')
-        return redirect(url_for('result'))
     return render_template('index.html')
 
 
@@ -114,72 +111,75 @@ def lime():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/result')
+@app.route('/result', methods=["POSTT"])
 def result():
-    image = session['original_image']
-    filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
-    filename = hashlib.md5(filename.encode('utf8')).hexdigest()
-    ext = '.' + ext
+    if request.method == 'POST':
+        image = request.files.get('file')
+        filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
+        filename = hashlib.md5(filename.encode('utf8')).hexdigest()
+        ext = '.' + ext
 
-    directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
-    os.makedirs(directory)
+        directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
+        os.makedirs(directory)
 
-    directory = os.path.join(directory, 'image')
-    os.makedirs(directory)
+        directory = os.path.join(directory, 'image')
+        os.makedirs(directory)
 
-    path = os.path.join(directory, filename + ext)
-    image.save(path)
+        path = os.path.join(directory, filename + ext)
+        image.save(path)
 
-    prepareImage = ml_utils.prepare_image(path)
+        prepareImage = ml_utils.prepare_image(path)
 
-    beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
-    os.makedirs(beforePath)
+        beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
+        os.makedirs(beforePath)
 
-    beforePath = os.path.join(beforePath, 'image')
-    os.makedirs(beforePath)
+        beforePath = os.path.join(beforePath, 'image')
+        os.makedirs(beforePath)
 
-    beforePath = os.path.join(beforePath, filename + ext)
-    cv2.imwrite(beforePath, prepareImage)
+        beforePath = os.path.join(beforePath, filename + ext)
+        cv2.imwrite(beforePath, prepareImage)
 
-    session['image'] = image.read()
-    session['path'] = path
+        session['image'] = image.read()
+        session['path'] = path
 
-    result_id = 2
+        result_id = 2
 
-    herb = Herb.query.filter_by(herb_id=result_id).first()
-    category = Category.query.filter_by(category_id=herb.category_id_fk).first()
+        herb = Herb.query.filter_by(herb_id=result_id).first()
+        category = Category.query.filter_by(category_id=herb.category_id_fk).first()
 
-    group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
-    group_name = group.group_name
-    # 유사약재들 처리
-    # 1. 해당 유사약재그룹id를 가진 약재 모두다 조회
-    group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
-    # 2. 유사약재허브들 객체들에서 이름, 이미지경로 가져오기
-    groups = [(_.herb_name, _.image_path) for _ in group_herbs]
+        group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
+        group_name = group.group_name
+        # 유사약재들 처리
+        # 1. 해당 유사약재그룹id를 가진 약재 모두다 조회
+        group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
+        # 2. 유사약재허브들 객체들에서 이름, 이미지경로 가져오기
+        groups = [(_.herb_name, _.image_path) for _ in group_herbs]
 
-    location_list = Location.query.filter_by(herb_id_fk=result_id).all()
-    # 좌표들의 평균구하기
-    x_avg, y_avg = 0., 0.
-    for x, y in [(location.pos_x, location.pos_y) for location in location_list]:
-        x_avg += x
-        y_avg += y
-    n = len(location_list)
-    x_avg /= n
-    y_avg /= n
+        location_list = Location.query.filter_by(herb_id_fk=result_id).all()
+        # 좌표들의 평균구하기
+        x_avg, y_avg = 0., 0.
+        for x, y in [(location.pos_x, location.pos_y) for location in location_list]:
+            x_avg += x
+            y_avg += y
+        n = len(location_list)
+        x_avg /= n
+        y_avg /= n
 
-    news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
+        news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
 
-    data = {
-        'herb': herb,
-        'category': category,
-        'group_name': group_name,
-        'groups': groups,  # 튜플로 유사그룹 name, img_path가 담김
-        'location_list': location_list,
-        'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
-        'news_list': news_list,
-        'origin_img_path': path
-    }
-    return redirect('app.html', **data)
+        data = {
+            'herb': herb,
+            'category': category,
+            'group_name': group_name,
+            'groups': groups,  # 튜플로 유사그룹 name, img_path가 담김
+            'location_list': location_list,
+            'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
+            'news_list': news_list,
+            'origin_img_path': path
+        }
+        return redirect('app.html', **data)
+    else:
+        return redirect(url_for('upload'))
 
 
 if __name__ == "__main__":
