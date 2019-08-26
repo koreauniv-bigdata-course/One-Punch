@@ -125,20 +125,25 @@
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
                 <div class="d-flex h-25 text-center align-items-center">
-            <div class="layer">
-                <form action="{{ url_for('result') }}" class="dropzone" id="my-dropzone" method="POST" enctype="multipart/form-data">
-        </form>
-            {{ dropzone.load_js() }}
-                 <script>
-            Dropzone.autoDiscover = false;
+                <form action="/result/" method="post" class="dropzone dz-clickable" id="myDropzone" enctype="multipart/form-data">
+                    <div class="dz-default dz-message"><span>업로드</span></div>
+                </form>
+            </div>
+            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
+                <img src="/static/img/guid3.png" style="margin-top: -8rem; opacity: 10"></div>
 
-            $(function() {
-              var myDropzone = new Dropzone("#my-dropzone");
-              myDropzone.on("queuecomplete", function(file) {
-                // Called when all files in the queue finish uploading.
-                window.location = "{{ url_for('result') }}";
-              });
-            })
+        </div>
+            <script src="https://cdn.jsdelivr.net/npm/dropzone@5.2.0/dist/dropzone.min.js"></script>
+            <script>
+                Dropzone.autoDiscover = false;
+
+                $(function() {
+                  var myDropzone = new Dropzone("#my-dropzone");
+                  myDropzone.on("queuecomplete", function(file) {
+                    // Called when all files in the queue finish uploading.
+                    window.location = "{{ url_for('result') }}";
+                  });
+                })
             </script>
             </div>
 
