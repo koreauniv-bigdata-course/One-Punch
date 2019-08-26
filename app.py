@@ -44,8 +44,7 @@ for table, view in zip(table_list, view_list):
 
 
 def _create_identifier():
-    base = unicode("%s|%s|%s".format((request.remote_addr, str(time.time()),
-                                   request.headers.get("User-Agent")), 'utf8', errors='replace'))
+    base = unicode("%s|%s".format((request.remote_addr, request.headers.get("User-Agent")), 'utf8', errors='replace'))
     hsh = hashlib.md5()
     hsh.update(base.encode("utf8"))
     return hsh.hexdigest()
@@ -121,10 +120,12 @@ def result():
         ext = '.' + ext
 
         directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
-        os.makedirs(directory)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
         directory = os.path.join(directory, 'image')
-        os.makedirs(directory)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
@@ -132,16 +133,17 @@ def result():
         prepareImage = ml_utils.prepare_image(path)
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
-        os.makedirs(beforePath)
+        if not os.path.exists(beforePath):
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, 'image')
-        os.makedirs(beforePath)
+        if not os.path.exists(beforePath):
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, filename + ext)
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
-        session['path'] = path
 
         result_id = 2
 
@@ -181,6 +183,7 @@ def result():
         return render_template('app.html', **data)
     else:
         return redirect(url_for('upload'))
+
 
 
 if __name__ == "__main__":
