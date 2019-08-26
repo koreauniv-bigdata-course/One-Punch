@@ -126,6 +126,8 @@
                     {{ dropzone.create() }}
                     <input type="submit" id="submit" value="Submit and Upload">
                 </form>
+                {{ dropzone.load_js() }}
+                {{ dropzone.config() }}
             </div>
 
             <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
