@@ -111,7 +111,7 @@ def get_image(path):
     # shutil.move(imgPath, movePath)
     # os.remove(path)
 
-    return image
+    return image, movePath
 
 
 def grad_cam(model, image):
