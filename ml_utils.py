@@ -103,7 +103,7 @@ def get_image(path):
     print(generator.filepaths)
     print(generator.filenames)
     imgPath = generator.filepaths[0]
-    imgName = generator.filenames[0].split('\\')[1]
+    imgName = generator.filenames[0].split('/')[1]
     image = generator.next()[0][0]
 
     # movePath = os.path.join(AFTER_PATH, imgName)
