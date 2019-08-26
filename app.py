@@ -18,7 +18,7 @@ app = Flask(__name__)
 dropzone = Dropzone()
 app.config.update(
     # Admin, SQLAlchemy config:
-    SQLALCHEMY_DATABASE_URI='sqlite:///database/herb_medicine.db',
+    SQLALCHEMY_DATABASE_URI='sqlite:///herb_medicine.db',
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
     FLASK_ADMIN_SWATCH='cosmo',
     SECRET_KEY='my_secret_key',
