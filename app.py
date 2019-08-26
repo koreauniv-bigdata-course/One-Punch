@@ -71,9 +71,14 @@ def upload():
         ext = '.' + ext
 
         directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
-        print(directory)
         if not os.path.exists(directory):
-            print('1111')
+            access_rights = 0o755
+            try:
+                os.mkdir(directory, access_rights)
+            except OSError:
+                print("Creation of the directory %s failed" % directory)
+            else:
+                print("Successfully created the directory %s" % directory)
             os.mkdir(directory)
 
         directory = os.path.join(directory, 'image')
