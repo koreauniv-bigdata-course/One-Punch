@@ -141,6 +141,9 @@ def result():
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
+        session['path'] = path
+
+    else:
         result_id = 2
 
         herb = Herb.query.filter_by(herb_id=result_id).first()
@@ -174,12 +177,10 @@ def result():
             'location_list': location_list,
             'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
             'news_list': news_list,
-            'origin_img_path': path
+            'origin_img_path': session.get('path', None)
         }
         session.pop('id')
         return render_template('app.html', **data)
-    else:
-        return redirect('/')
 
 
 if __name__ == "__main__":
