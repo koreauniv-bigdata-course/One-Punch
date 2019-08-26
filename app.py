@@ -7,7 +7,6 @@ import cv2
 from flask import Flask, request, session, render_template
 from flask_dropzone import Dropzone
 from numpy import unicode
-import numpy as np
 import matplotlib.pyplot as plt
 
 import ml_utils
@@ -45,9 +44,7 @@ for table, view in zip(table_list, view_list):
 
 def _create_identifier():
     base = unicode("%s|%s".format((request.remote_addr,
-                                   request.headers.get("User-Agent")),
-                                  'utf8',
-                                  errors='replace'))
+                                   request.headers.get("User-Agent")), 'utf8', errors='replace'))
     hsh = hashlib.md5()
     hsh.update(base.encode("utf8"))
     return hsh.hexdigest()
@@ -83,22 +80,22 @@ def upload():
         path = os.path.join(directory, filename + ext)
         image.save(path)
 
-        # prepareImage = ml_utils.prepare_image(path)
-        #
-        # beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
-        # if not os.path.exists(beforePath):
-        #     os.mkdir(beforePath)
-        #
-        # beforePath = os.path.join(beforePath, 'image')
-        # if not os.path.exists(beforePath):
-        #     os.mkdir(beforePath)
-        #
-        # beforePath = os.path.join(beforePath, filename + ext)
-        # cv2.imwrite(beforePath, prepareImage)
+        prepareImage = ml_utils.prepare_image(path)
 
-        # session['image'] = image.read()
+        beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
+        if not os.path.exists(beforePath):
+            os.mkdir(beforePath)
+
+        beforePath = os.path.join(beforePath, 'image')
+        if not os.path.exists(beforePath):
+            os.mkdir(beforePath)
+
+        beforePath = os.path.join(beforePath, filename + ext)
+        cv2.imwrite(beforePath, prepareImage)
+
+        session['image'] = image.read()
         # session['image_path'] = directory
-        # print(session['image'])
+        print(session['image'])
     session['id'] = _create_identifier()
     return render_template('index.html')
 
@@ -122,7 +119,7 @@ def grad_cam():
 def smooth_grad():
     global model
     image = ml_utils.get_image(session['id'])
-    smoothGradGrid = ml_utils.smooth_grad(model, image, 1)
+    smoothGradGrid = ml_utils.smooth_grad(model, image)
 
     img = io.BytesIO()
     plt.imshow(smoothGradGrid)
@@ -150,13 +147,7 @@ def lime():
 
 @app.route('/result/')
 def result():
-    global model
-
     image = ml_utils.get_image(session['id'])
-    image = np.expand_dims(image, axis=0)
-    # image = ml_utils.prepare_image_for_predict(image, target=(224, 224))
-    preds = model.predict(image)
-
     # gradCamGrid = ml_utils.grad_cam(model, image)
     # smoothGradGrid = ml_utils.smooth_grad(model, image)
     # preds, temp, mask, features, out = ml_utils.lime(model, image)
@@ -172,7 +163,7 @@ def result():
     # 'out': out
     # }
 
-    result_id = int(np.argmax(preds))
+    result_id = 2
 
     herb = Herb.query.filter_by(herb_id=result_id).first()
     category = Category.query.filter_by(category_id=herb.category_id_fk).first()
