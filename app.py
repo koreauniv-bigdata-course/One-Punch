@@ -63,6 +63,7 @@ def load_model():
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/index/', methods=['POST', 'GET'])
 def upload():
+    session['id'] = _create_identifier()
     if request.method == 'POST':
         image = request.files.get('file')
         filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
@@ -96,7 +97,6 @@ def upload():
         session['image'] = image.read()
         # session['image_path'] = directory
         print(session['image'])
-    session['id'] = _create_identifier()
     return render_template('index.html')
 
 
