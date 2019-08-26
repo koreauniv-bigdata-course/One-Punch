@@ -188,4 +188,4 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(ip='0.0.0.0:6000')
+    app.run(ip='0.0.0.0', port=6000)
