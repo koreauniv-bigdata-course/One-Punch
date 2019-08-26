@@ -122,11 +122,7 @@
 
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
-
-                <form action="{{ url_for('result_form') }}" enctype="multipart/form-data" method="post">
-                    {{ dropzone.create(action='result') }}
-                    <input type="submit" id="submit" value="Submit and Upload">
-                </form>
+                {{ dropzone.create() }}
                 {{ dropzone.load_js() }}
                 {{ dropzone.config() }}
             </div>
