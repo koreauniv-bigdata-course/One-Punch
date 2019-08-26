@@ -62,16 +62,16 @@ def image_at_graph_paper(image, graph_paper):
     return img
 
 
-# def prepare_image(image, target):
-#     if image.mode != "RGB":
-#         image = image.convert("RGB")
-#
-#     image = image.resize(target)
-#     image = img_to_array(image)
-#     image = np.expand_dims(image, axis=0)
-#     image = imagenet_utils.preprocess_input(image)
-#
-#     return image
+def prepare_image_for_predict(image, target=(224, 224)):
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+
+    image = image.resize(target)
+    image = img_to_array(image)
+    image = np.expand_dims(image, axis=0)
+    image = imagenet_utils.preprocess_input(image)
+
+    return image
 
 
 def prepare_image(image_path):
@@ -92,21 +92,23 @@ def prepare_image(image_path):
 
 
 def get_image(path):
-    dataDir = path
     dataGen = keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255,
                                                            samplewise_center=True,
                                                            samplewise_std_normalization=True)
-    generator = dataGen.flow_from_directory(dataDir,
+    generator = dataGen.flow_from_directory(os.path.join(BEFORE_PATH, path),
                                             target_size=(224, 224),
                                             batch_size=5,
                                             shuffle=False,
                                             class_mode="categorical")
-    # print(generator.filepaths)
-    imgPath = generator.filepaths[1]
-    imgName = generator.filenames[1].split('\\')[1]
+    print(generator.filepaths)
+    imgPath = generator.filepaths[0]
+    imgName = generator.filenames[0].split('\\')[1]
     image = generator.next()[0][0]
-    movePath = os.path.join(dataDir, '[2]after', imgName)
+
+    movePath = os.path.join(AFTER_PATH, imgName)
+    # shutil.copy(imgPath, movePath)
     shutil.move(imgPath, movePath)
+    # os.remove(path)
 
     return image
 
@@ -123,11 +125,11 @@ def grad_cam(model, image):
     return grid
 
 
-def smooth_grad(model, image):
+def smooth_grad(model, image, class_index):
     data = ([image], None)
 
     explainer = SmoothGrad()
-    grid = explainer.explain(data, model, 6)
+    grid = explainer.explain(data, model, class_index)
 
     return grid
 
