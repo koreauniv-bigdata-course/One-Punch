@@ -50,7 +50,8 @@ def _create_identifier():
     return hsh.hexdigest()
 
 
-@app.route('/load_model/')
+# @app.route('/load_model/')
+@app.before_first_request
 def load_model():
     model_name = './models/maybe_best_model.h5'
     global model
