@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+
+
+<!--약재정보-->
+{% block herb %}
+    <div class="row">
+        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;font-size:20px; ">{{ herb.herb_name  }}</div></div>
+        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px;"> {% if herb.is_poison == 1 %}{{ "독성약재" }}{% else %}일반약재{% endif %} </div></div>
+        <div class="col-xs-6 col-md-4"></div>
+    </div>
+
+    <!--약재정보-->
+    {# 허브 #}
+    <div class="scrollbar scrollbar-primary" style="width: 100%; height:170px; overflow-y:auto; overflow-x: hidden;  margin-bottom: 10px;">
+        <table class="table table-striped">
+            <colgroup>
+                <col style= "width: 20%" />
+                <col width="90" />
+            </colgroup>
+            <thead>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>분류</td>
+                <td>{{ category.category_name }}</td>
+            </tr>
+
+            <tr>
+                <td>기원</td>
+                <td>{{ herb.origin }}</td>
+            </tr>
+
+            <tr>
+                <td>주치</td>
+                <td style="font-size: 14px;">{{ herb.major_effect }}</td>
+            </tr>
+
+            <tr>
+                <td>효능</td>
+                <td style="font-size: 14px;">{{ herb.effect | truncate(100) }}</td>
+            </tr>
+
+            <tr>
+                <td style="font-size:14px;">외관상 특징</td>
+                <td style="font-size: 14px;">{{ herb.figure_feature | truncate(100) }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {#        <ul>#}
+    {#            <li>{% if herb.is_poison == 1 %}{{ "독성약재입니다" }}{% else %}일반약재입니다.{% endif %}</li>#}
+    {#            <li>{{ "분류 : "+ category.category_name}}</li>#}
+    {#            <li>{{ "기원 : "+ herb.origin }}</li>#}
+    {#            <li>{{ "주치 : "+ herb.major_effect }}</li>#}
+    {#            <li>{{ "효능 :  "+ herb.effect | truncate(20) }}</li>#}
+    {#            <li>{{ "외관상 감별 : "+ herb.figure_feature | truncate(20) }}</li>#}
+    {#        </ul>#}
+{% endblock %}
+
+
+<!--insert 약재이미지 block-->
+{% block main_image %}
+    {{ "들어온 이미지 : "+ herb.image_path }}
+{% endblock %}
+
+<!--독성 확률 그래프-->
+{% block predict_graph %}
+    <div class="col-auto" style="margin:auto;">
+        <div class="chart-pie pt-4 pb-2" style="margin-top: -40px;">
+            <canvas id="myPieChart" style="width:150px; margin:0px"></canvas>
+            <div class="donut-inner">
+                <!--독성 확률 퍼센트 -->
+                <h5>90 %</h5>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!--유사 약재 이미지-->
+{% block similar_images %}
+    {% for (name, img_path) in groups %}
+        {% if name != herb.herb_name %}
+            <img src="{{ img_path }}" alt="{{ img_path }}">
+            <li>{{ "유사약재 : "+ name}}</li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+
+<!--독성약재 map-->
+{% block map %}
+    {% include "location.html" %}
+    {#    <p>좌표들의 평균 : {{ location_avg }}</p>#}
+    <div id="chartdiv"></div>
+    {#    {% for location in location_list %}#}
+    {#        <ul>#}
+    {#            <li>{{ location.country}}&nbsp;{% if location.location_name %}{{location.location_name }}{% endif %}</li>#}
+    {#            <li>{{ location.pos_x }}</li>#}
+    {#            <li>{{ location.pos_y }}</li>#}
+    {#        </ul>#}
+    {#    {% endfor %}#}
+{% endblock %}
+
+
+<!--feature map-->
+{% block featuremap %}
+    <script>
+        $.ajax({
+            type: "GET"
+            , url: "/smooth_grad/"
+
+            , success: function(res) {
+                var result = "<img src='" + res + "' style='width: 100, height:100;' />";
+                $("#smooth_grad").html(result);
+            }
+
+            , beforeSend: function() {
+                //$('.wrap-loading').removeClass('display-none');
+            }
+
+            , complete: function() {
+                //(이미지 감추기 처리)
+                //$('.wrap-loading').addClass('display-none');
+            }
+
+            , error: function(e) {
+                console.log(e);
+            }
+            //, timeout:100000 // "응답제한시간 ms"
+        });
+    </script>
+    <div id="smooth_grad">
+        <p>이미지를 로드하는 중입니다 ...</p>
+    </div>
+{% endblock %}
+
+
+<!--뉴스 크로울링-->
+{% block news %}
+    {% for news in news_list %}
+        <ul>
+            <a href="{{ news.url }}">
+                <li>{{ news.title | truncate(30) }}</li>
+            </a>
+            <li>{{ news.date }}</li>
+        </ul>
+    {% endfor %}
+{% endblock %}

@@ -1,115 +1,144 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>독약한방</title>
+    <title>Title</title>
     {{ dropzone.load_css() }}
-    {{ dropzone.style('border: 4px; min-height: 350px; min-width: 400px;') }}
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    {{ dropzone.style('border: 4px; min-height: 300px; min-width: 610px;') }}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap/bootstrap.min.css') }}">
+    <!-- Jquery-->
+    <link rel="stylesheet" href="{{ url_for('static',filename='js/jquery.slim.min.js') }}">
     <style>
-        .dropzone .dz-preview {
+        header {
+            position: relative;
+            background-color: black;
+            height: 100vh;
+            min-height: 25rem;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        header video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        header .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        @media (pointer: coarse) and (hover: none) {
+            header {
+                background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+            }
+            header video {
+                display: none;
+            }
+        }
+            .dropzone{
+                background-color: #b4b4b4;
+                opacity: 0.7;
+            }
+
+          .dropzone .dz-preview {
             position: relative;
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             margin: 10px;
-            min-height: 300px;
-            min-width: 350px;
+            min-height: 250px;
+              min-width: 550px;
         }
 
         .dropzone .dz-preview .dz-image img {
             display: block;
-            width: 350px;
-            height: 300px;
+            width: 550px;
+            height: 250px;
+            vertical-align: middle;
+
         }
 
         .dropzone .dz-preview .dz-image {
             border-radius: 20px;
             overflow: hidden;
-            width:350px;
-            height: 300px;
+            width:550px;
+            height: 250px;
             position: relative;
             display: block;
             z-index: 10;
+
+        }
+
+
+        .layer{
+            position:absolute;
+            top: -5%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            z-index:3;
+            opacity:0.5;
         }
 
 
     </style>
-
-    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 </head>
 
-
-<body class="body" style="background-image: url('{{ url_for( 'static' , filename = 'img/background3.png') }}'); min-width: 100%;">
-
-<div class="site-body">
-    <div id="fb-root"></div>
-    <div class="container" style="max-width: 550px; text-align: center">
-        <div id="header" >
-            <div >
-                <div>
-                    <h1>
-                        <img src="{{ url_for('static', filename='img/독성한방.png') }}" alt="Image placeholder" style="width: 50%; margin-top:5%; ">
-                    </h1>
-                    <h2>
-                        <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Image placeholder" style="width: 50%; margin-top:5%; margin-bottom: 2%;">
-                    </h2>
-                    <br />
-                </div>
+<body>
+<header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="{{ url_for('static',filename='img/back.mov') }}" type="video/mp4">
+    </video>
+    <div class="container h-75">
+        <div class="d-flex h-50 text-center align-items-center">
+            <div class="w-100 text-white">
+                <h1 class="display-3"><img src="{{ url_for('static', filename="img/logo1.png") }}" style="width:200px"></h1>
+                <p class="lead mb-0"><img src="{{ url_for('static', filename="img/logo2.png") }}" style="width:200px"></p>
+                <button type="button" href=# class="btn btn-light btn-lg" style="border-radius: 25px; margin-top:20px; font-size: 12px; padding: 10px 25px;">Get started</button>
             </div>
         </div>
     </div>
+    <div class="container h-25">
 
+        <div class="d-flex h-25 text-center align-items-center">
+            <div class="layer">
+                {{ dropzone.create(action='upload') }}
+                {{ dropzone.load_js() }}
+{#                {{ dropzone.config() }}#}
+                {{ dropzone.config(redirect_url=url_for('result')) }}
+            </div>
 
-    <div style="text-align:center; margin-bottom: 3%;">
-        <button type="button" class="btn btn-secondary " style="width:140px; font-size: 18px; margin-right:25px; background-color: #005740">일반인용</button>
-        <button type="button" class="btn btn-secondary" style="width:140px; font-size: 18px; background-color: #79853c">전문가용</button>
+            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
+                <img src="{{ url_for('static', filename="img/guid3.png") }}" style="margin-top: -8rem; opacity: 10"></div>
+
+        </div>
     </div>
+</header>
 
 
 
-    <div>
-        <div style="position: absolute; left:0%; bottom:50px; z-index:0">
-            <img src="{{ url_for('static', filename='img/hubs1.png') }}" style="width:100%;">
-        </div>
-
-        <div style="position: absolute; left:10%;  bottom:60px; z-index:1">
-            <img src="{{ url_for('static', filename='img/hubs2.png') }}" style="width: 100%;">
-        </div>
-
-        <div style="position: absolute; left: 20%; bottom:70px; z-index:2">
-            <img src="{{ url_for('static', filename='img/hubs3.png') }}" style="width:100%;">
-        </div>
-
-        <div style= "position:relative; margin:auto; outline: 4px dashed #8add66; outline-offset: -15px; width:400px; height: 350px; z-index:5;">
-            {{ dropzone.create(action='upload') }}
-            {{ dropzone.load_js() }}
-            {{ dropzone.config() }}
-{#            {{ dropzone.config(redirect_url=url_for('result')) }}#}
-        </div>
-
-        <div style="position: absolute; right:0%; bottom:50px; z-index:0">
-            <img src="{{ url_for('static', filename='img/hubs6.png') }}" style="width:100%;">
-        </div>
-
-        <div style="position: absolute; right:5%;  bottom:60px; z-index:1">
-            <img src="{{ url_for('static', filename='img/hubs5.png') }}" style="width: 100%;">
-        </div>
-
-        <div style="position: absolute; right: 20%; bottom:70px; z-index:2">
-            <img src="{{ url_for('static', filename='img/hubs4.png') }}" style="width:100%;">
-        </div>
-
-        <div style="position: absolute; bottom:0px; z-index:3;">
-            <img src="{{ url_for('static', filename='img/bottom3.png') }}" style="width: 100%;">
-        </div>
-
-    </div>
-
-
-</div>
-
+<script src="{{ url_for('static',filename='vendors/jquery/dist/jquery.min.js') }}"></script>
 </body>
-
 </html>
