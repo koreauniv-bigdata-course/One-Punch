@@ -57,7 +57,7 @@ def image_at_graph_paper(image, graph_paper):
     for rgb in range(graph_paper.shape[2]):
         for y in range(graph_paper.shape[1]):
             for x in range(graph_paper.shape[0]):
-                if img[x][y][rgb] == 0:
+                if not img[x][y][rgb]:
                     img[x][y][rgb] = graph_paper[x][y][rgb]
     return img
 
@@ -95,23 +95,16 @@ def get_image(path):
     dataGen = keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255,
                                                            samplewise_center=True,
                                                            samplewise_std_normalization=True)
-    generator = dataGen.flow_from_directory(os.path.join(PREPARE_PATH, path),
+    generator = dataGen.flow_from_directory(os.path.join(BEFORE_PATH, path),
                                             target_size=(224, 224),
                                             batch_size=5,
                                             shuffle=False,
                                             class_mode="categorical")
-    print(generator.filepaths)
-    print(generator.filenames)
     imgPath = generator.filepaths[0]
     imgName = generator.filenames[0].split('/')[1]
     image = generator.next()[0][0]
 
-    movePath = os.path.join(AFTER_PATH, imgName)
-    shutil.copy(imgPath, movePath)
-    # shutil.move(imgPath, movePath)
-    # os.remove(path)
-
-    return image, movePath
+    return image
 
 
 def grad_cam(model, image):

@@ -78,6 +78,7 @@ def upload():
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
+        session['origin_img_path'] = path
 
         prepareImage = ml_utils.prepare_image(path)
 
@@ -97,7 +98,7 @@ def upload():
 @app.route('/grad_cam/')
 def grad_cam():
     global model
-    image, _ = ml_utils.get_image(session['id'])
+    image = ml_utils.get_image(session['id'])
     gradCamGrid = ml_utils.grad_cam(model, image)
 
     img = io.BytesIO()
@@ -112,7 +113,7 @@ def grad_cam():
 @app.route('/smooth_grad/')
 def smooth_grad():
     global model
-    image, _ = ml_utils.get_image(session['id'])
+    image = ml_utils.get_image(session['id'])
     smoothGradGrid = ml_utils.smooth_grad(model, image)
 
     img = io.BytesIO()
@@ -127,7 +128,7 @@ def smooth_grad():
 @app.route('/lime/')
 def lime():
     global model
-    image, _ = ml_utils.get_image(session['id'])
+    image = ml_utils.get_image(session['id'])
     _, _, _, features, _ = ml_utils.lime(model, image)
 
     img = io.BytesIO()
@@ -166,7 +167,6 @@ def result():
 
     news_list = News.query.filter_by(herb_id_fk=result_id).all()[:3]
 
-    _, path = ml_utils.get_image(session['id'])
     data = {
         'herb': herb,
         'category': category,
@@ -175,7 +175,7 @@ def result():
         'location_list': location_list,
         'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
         'news_list': news_list,
-        'img_path': path
+        'origin_img_path': session['id']
     }
 
     return render_template('app.html', **data)
