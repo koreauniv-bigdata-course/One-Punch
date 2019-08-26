@@ -19,9 +19,9 @@ _classes = [
 ]
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-PREPARE_PATH = os.path.join(basedir, 'static', 'uploads', '[0]pre')
-BEFORE_PATH = os.path.join(basedir, 'static','uploads', '[1]before')
-AFTER_PATH = os.path.join(basedir, 'static','uploads', '[2]after')
+PREPARE_PATH = os.path.join(basedir, 'static', 'uploads', 'pre')
+BEFORE_PATH = os.path.join(basedir, 'static','uploads', 'before')
+AFTER_PATH = os.path.join(basedir, 'static','uploads', 'after')
 GRAPH_PAPER_PATH = os.path.join(basedir, 'static', 'uploads', 'gp', 'monun.jpg')
 
 
