@@ -4,7 +4,7 @@ import io
 import os
 
 import cv2
-from flask import Flask, request, session, render_template, redirect
+from flask import Flask, request, session, render_template, redirect, url_for
 from flask_dropzone import Dropzone
 from numpy import unicode
 import matplotlib.pyplot as plt
@@ -65,10 +65,11 @@ def upload():
     session['id'] = _create_identifier()
     if request.method == 'POST':
         session['original_image'] = request.files.get('file')
+        return redirect(url_for('result'))
     return render_template('index.html')
 
 
-@app.route('/grad_cam/')
+@app.route('/grad_cam')
 def grad_cam():
     global model
     image = ml_utils.get_image(session['id'])
@@ -83,7 +84,7 @@ def grad_cam():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/smooth_grad/')
+@app.route('/smooth_grad')
 def smooth_grad():
     global model
     image = ml_utils.get_image(session['id'])
@@ -98,7 +99,7 @@ def smooth_grad():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/lime/')
+@app.route('/lime')
 def lime():
     global model
     image = ml_utils.get_image(session['id'])
@@ -113,7 +114,7 @@ def lime():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/result/')
+@app.route('/result')
 def result():
     image = session['original_image']
     filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
