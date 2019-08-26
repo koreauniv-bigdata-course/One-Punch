@@ -28,7 +28,7 @@ app.config.update(
 
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_TYPE='image',
-    DROPZONE_MAX_FILE_SIZE=10,
+    DROPZONE_MAX_FILE_SIZE=10000,
     DROPZONE_MAX_FILES=1,
 )
 dropzone.init_app(app)
