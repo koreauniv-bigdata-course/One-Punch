@@ -62,7 +62,6 @@ def load_model():
 
 @app.route('/', methods=["POST","GET"])
 def upload():
-    session.pop('id')
     session['id'] = _create_identifier()
     if request.method == 'POST':
         session['original_image'] = request.files.get('file')
@@ -179,7 +178,6 @@ def result():
         'news_list': news_list,
         'origin_img_path': path
     }
-    session.pop('id')
     return redirect('app.html', **data)
 
 
