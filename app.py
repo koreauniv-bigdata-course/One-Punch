@@ -31,6 +31,7 @@ app.config.update(
     DROPZONE_ALLOWED_FILE_TYPE='image',
     DROPZONE_MAX_FILE_SIZE=10000,
     DROPZONE_MAX_FILES=1,
+    DROPZONE_REDIRECT_VIEW='result'
 )
 dropzone.init_app(app)
 db.init_app(app)
