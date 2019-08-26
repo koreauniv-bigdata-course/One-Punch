@@ -7,6 +7,7 @@ import cv2
 from flask import Flask, request, session, render_template
 from flask_dropzone import Dropzone
 from numpy import unicode
+import numpy as np
 import matplotlib.pyplot as plt
 
 import ml_utils
@@ -148,6 +149,10 @@ def lime():
 @app.route('/result/')
 def result():
     image = ml_utils.get_image(session['id'])
+    image = np.expand_dims(image, axis=0)
+    preds = model.predict(image)
+
+
     # gradCamGrid = ml_utils.grad_cam(model, image)
     # smoothGradGrid = ml_utils.smooth_grad(model, image)
     # preds, temp, mask, features, out = ml_utils.lime(model, image)
@@ -163,7 +168,7 @@ def result():
     # 'out': out
     # }
 
-    result_id = 2
+    result_id = int(np.argmax(preds))
 
     herb = Herb.query.filter_by(herb_id=result_id).first()
     category = Category.query.filter_by(category_id=herb.category_id_fk).first()
