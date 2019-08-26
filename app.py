@@ -78,9 +78,9 @@ def upload():
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
-        session['origin_img_path'] = path
 
         prepareImage = ml_utils.prepare_image(path)
+        session['origin_img_path'] = str(path)
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
         os.makedirs(beforePath)
