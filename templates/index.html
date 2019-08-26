@@ -124,7 +124,7 @@
 
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
-                <form action="{{ url_for('result') }}" enctype="multipart/form-data" method="post">
+                <form action="{{ url_for('result_form') }}" enctype="multipart/form-data" method="post">
                     {{ dropzone.create() }}
                     <input type="submit" id="submit" value="Upload">
                 </form>
@@ -138,9 +138,6 @@
         </div>
     </div>
 </header>
-
-
-
 <script src="{{ url_for('static',filename='vendors/jquery/dist/jquery.min.js') }}"></script>
 </body>
 </html>

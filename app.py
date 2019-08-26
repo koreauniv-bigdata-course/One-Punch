@@ -132,6 +132,7 @@ def result():
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
+        session['path'] = path
 
         prepareImage = ml_utils.prepare_image(path)
 
@@ -147,12 +148,16 @@ def result():
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
+    else:
+        return redirect('/')
 
+
+@app.route('/form', methods=["GET","POST"])
+def result_form():
+    if request.method == 'POST':
         result_id = 2
-
         herb = Herb.query.filter_by(herb_id=result_id).first()
         category = Category.query.filter_by(category_id=herb.category_id_fk).first()
-
         group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
         group_name = group.group_name
         # 유사약재들 처리
@@ -160,7 +165,6 @@ def result():
         group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
         # 2. 유사약재허브들 객체들에서 이름, 이미지경로 가져오기
         groups = [(_.herb_name, _.image_path) for _ in group_herbs]
-
         location_list = Location.query.filter_by(herb_id_fk=result_id).all()
         # 좌표들의 평균구하기
         x_avg, y_avg = 0., 0.
@@ -181,13 +185,11 @@ def result():
             'location_list': location_list,
             'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
             'news_list': news_list,
-            'origin_img_path': path
+            'origin_img_path': session['path']
         }
         return render_template('app.html', **data)
     else:
-        return redirect(url_for('upload'))
-
-
+        return redirect('/')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=6000)
