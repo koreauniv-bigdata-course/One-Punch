@@ -112,7 +112,7 @@ def lime():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/result/', methods=["POST"])
+@app.route('/result/', methods=["GET","POST"])
 def result():
     if request.method == 'POST':
         image = request.files.get('file')
