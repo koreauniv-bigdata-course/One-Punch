@@ -4,8 +4,20 @@
 <!--약재정보-->
 {% block herb %}
     <div class="row">
-        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;font-size:20px; ">{{ herb.herb_name  }}</div></div>
-        <div class="col-xs-6 col-md-4">   <div class="text-s font-weight-bold text-success text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px;"> {% if herb.is_poison == 1 %}{{ "독성약재" }}{% else %}일반약재{% endif %} </div></div>
+        <div class="col-xs-6 col-md-4">
+            <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;font-size:20px; ">
+                {{ herb.herb_name  }}
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="text-s font-weight-bold text-success text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px;">
+                {% if herb.is_poison == 1 %}
+                    {{ "독성약재" }}
+                {% else %}
+                    일반약재
+                {% endif %}
+            </div>
+        </div>
         <div class="col-xs-6 col-md-4"></div>
     </div>
 
@@ -109,7 +121,7 @@
     <script>
         $.ajax({
             type: "GET"
-            , url: "/smooth_grad/"
+            , url: "/grad_cam/"
 
             , success: function(res) {
                 var result = "<img src='" + res + "' style='width: 100, height:100;' />";

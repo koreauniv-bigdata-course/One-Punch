@@ -71,10 +71,12 @@ def upload():
         ext = '.' + ext
 
         directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
-        os.mkdir(directory)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
         directory = os.path.join(directory, 'image')
-        os.mkdir(directory)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
@@ -82,17 +84,18 @@ def upload():
         prepareImage = ml_utils.prepare_image(path)
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
-        os.mkdir(beforePath)
+        if not os.path.exists(beforePath):
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, 'image')
-        os.mkdir(beforePath)
+        if not os.path.exists(beforePath):
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, filename + ext)
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
         # session['image_path'] = directory
-        print(session['image'])
     return render_template('index.html')
 
 
