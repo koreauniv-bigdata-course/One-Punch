@@ -152,7 +152,7 @@ def result():
         return redirect('/')
 
 
-@app.route('/form', methods=["GET","POST"])
+@app.route('/result_form', methods=["GET","POST"])
 def result_form():
     if request.method == 'POST':
         result_id = 2
@@ -190,6 +190,7 @@ def result_form():
         return render_template('app.html', **data)
     else:
         return redirect('/')
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=6000)
