@@ -136,7 +136,6 @@ def result():
         image.save(path)
 
         prepareImage = ml_utils.prepare_image(path)
-        session['origin_img_path'] = str(path)
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
         os.makedirs(beforePath)
@@ -181,7 +180,7 @@ def result():
             'location_list': location_list,
             'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
             'news_list': news_list,
-            'origin_img_path': session['origin_img_path']
+            'origin_img_path': path
         }
         session.pop('id')
         return render_template('app.html', **data)
