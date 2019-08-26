@@ -72,18 +72,11 @@ def upload():
 
         directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
         if not os.path.exists(directory):
-            access_rights = 0o755
-            try:
-                os.mkdir(directory, access_rights)
-            except OSError:
-                print("Creation of the directory %s failed" % directory)
-            else:
-                print("Successfully created the directory %s" % directory)
-            os.mkdir(directory)
+            os.makedirs(directory)
 
         directory = os.path.join(directory, 'image')
         if not os.path.exists(directory):
-            os.mkdir(directory)
+            os.makedirs(directory)
 
         path = os.path.join(directory, filename + ext)
         image.save(path)
@@ -92,18 +85,17 @@ def upload():
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
         if not os.path.exists(beforePath):
-            os.mkdir(beforePath)
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, 'image')
         if not os.path.exists(beforePath):
-            os.mkdir(beforePath)
+            os.makedirs(beforePath)
 
         beforePath = os.path.join(beforePath, filename + ext)
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
         # session['image_path'] = directory
-        print(session['image'])
     return render_template('index.html')
 
 
