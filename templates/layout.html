@@ -85,17 +85,12 @@
 
                 <!-- Content Row -->
                 <div class="row">
-
-                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4 ">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body" style="height:23rem;">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto" style="margin: auto; margin-bottom:-10px;">
-                                        <!--insert 약재이미지 block-->
-                                        {#                                        {% block main_image %}#}
-                                        {#                                        {% endblock %}#}
-                                        <img src="{{ url_for('static', filename="img/1.png") }}" style="width:200px; height:150px; margin-bottom: 10px;">
+                                        <img src="{{origin_img_path }}" style="width:200px; height:150px; margin-bottom: 10px;">
                                     </div>
 
                                     {% block predict_graph %}
