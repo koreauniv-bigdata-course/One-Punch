@@ -54,22 +54,24 @@
             header {
                 background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
             }
+
             header video {
                 display: none;
             }
         }
-            .dropzone{
-                background-color: #b4b4b4;
-                opacity: 0.7;
-            }
 
-          .dropzone .dz-preview {
+        .dropzone {
+            background-color: #b4b4b4;
+            opacity: 0.7;
+        }
+
+        .dropzone .dz-preview {
             position: relative;
             display: inline-block;
             vertical-align: middle;
             margin: 10px;
             min-height: 250px;
-              min-width: 550px;
+            min-width: 550px;
         }
 
         .dropzone .dz-preview .dz-image img {
@@ -83,7 +85,7 @@
         .dropzone .dz-preview .dz-image {
             border-radius: 20px;
             overflow: hidden;
-            width:550px;
+            width: 550px;
             height: 250px;
             position: relative;
             display: block;
@@ -92,13 +94,13 @@
         }
 
 
-        .layer{
-            position:absolute;
+        .layer {
+            position: absolute;
             top: -5%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            z-index:3;
-            opacity:0.5;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            opacity: 0.5;
         }
 
 
@@ -114,53 +116,50 @@
     <div class="container h-75">
         <div class="d-flex h-50 text-center align-items-center">
             <div class="w-100 text-white">
-                <h1 class="display-3"><img src="{{ url_for('static', filename="img/logo1.png") }}" style="width:200px"></h1>
-                <p class="lead mb-0"><img src="{{ url_for('static', filename="img/logo2.png") }}" style="width:200px"></p>
-                <button type="button" href=# class="btn btn-light btn-lg" style="border-radius: 25px; margin-top:20px; font-size: 12px; padding: 10px 25px;">Get started</button>
+                <h1 class="display-3"><img src="{{ url_for('static', filename="img/logo1.png") }}" style="width:200px">
+                </h1>
+                <p class="lead mb-0"><img src="{{ url_for('static', filename="img/logo2.png") }}" style="width:200px">
+                </p>
+                <button type="button" href=# class="btn btn-light btn-lg"
+                        style="border-radius: 25px; margin-top:20px; font-size: 12px; padding: 10px 25px;">Get started
+                </button>
             </div>
         </div>
     </div>
     <div class="container h-25">
-
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
                 <div class="d-flex h-25 text-center align-items-center">
-                <form action="/result/" method="post" class="dropzone dz-clickable" id="myDropzone" enctype="multipart/form-data">
-                    <div class="dz-default dz-message"><span>업로드</span></div>
-                </form>
-            </div>
-            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
-                <img src="/static/img/guid3.png" style="margin-top: -8rem; opacity: 10"></div>
+                    <form action="/result/" method="post" class="dropzone dz-clickable" id="myDropzone"
+                          enctype="multipart/form-data">
+                        <div class="dz-default dz-message"><span>업로드</span></div>
+                    </form>
+                </div>
+                <div class="d-flex h-50 text-center align-items-center"
+                     style="position:relative; z-index: 2; margin:auto">
+                    <img src="/static/img/guid3.png" style="margin-top: -8rem; opacity: 10"></div>
 
-        </div>
+            </div>
             <script src="https://cdn.jsdelivr.net/npm/dropzone@5.2.0/dist/dropzone.min.js"></script>
             <script>
                 Dropzone.autoDiscover = false;
 
-                $(function() {
-                  var myDropzone = new Dropzone("#my-dropzone");
-                  myDropzone.on("queuecomplete", function(file) {
-                    // Called when all files in the queue finish uploading.
-                    window.location = "{{ url_for('result') }}";
-                  });
+                $(function () {
+                    var myDropzone = new Dropzone("#my-dropzone");
+                    myDropzone.on("queuecomplete", function (file) {
+                        // Called when all files in the queue finish uploading.
+                        window.location = "{{ url_for('result') }}";
+                    });
                 })
             </script>
-            </div>
-
-            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
-                <img src="{{ url_for('static', filename="img/guid3.png") }}" style="margin-top: -8rem; opacity: 10"></div>
-
         </div>
-                {{ dropzone.load_js() }}
-            </div>
 
-            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
-                <img src="{{ url_for('static', filename="img/guid3.png") }}" style="margin-top: -8rem; opacity: 10"></div>
+        <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
+            <img src="{{ url_for('static', filename="img/guid3.png") }}" style="margin-top: -8rem; opacity: 10"></div>
 
         </div>
     </div>
 </header>
-
 
 
 <script src="{{ url_for('static',filename='vendors/jquery/dist/jquery.min.js') }}"></script>
