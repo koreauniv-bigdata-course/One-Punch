@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     {{ dropzone.load_css() }}
+    {{ dropzone.load_js() }}
     {{ dropzone.style('border: 4px; min-height: 300px; min-width: 610px;') }}
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap/bootstrap.min.css') }}">
@@ -126,7 +127,6 @@
                     {{ dropzone.create() }}
                     <input type="submit" id="submit" value="Upload">
                 </form>
-                {{ dropzone.load_js() }}
                 {{ dropzone.config() }}
             </div>
 
