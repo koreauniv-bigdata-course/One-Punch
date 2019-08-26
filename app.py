@@ -32,7 +32,7 @@ app.config.update(
     DROPZONE_MAX_FILE_SIZE=10000,
     DROPZONE_MAX_FILES=1,
     DROPZONE_IN_FORM=True,
-    DROPZONE_UPLOAD_ON_CLICK=True,
+    DROPZONE_UPLOAD_ON_CLICK=False,
     DROPZONE_UPLOAD_ACTION='result',  # URL or endpoint
     DROPZONE_UPLOAD_BTN_ID='submit',
 )
