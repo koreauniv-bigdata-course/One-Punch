@@ -178,7 +178,7 @@ def result():
             'news_list': news_list,
             'origin_img_path': path
         }
-        return redirect('app.html', **data)
+        return render_template('app.html', **data)
     else:
         return redirect(url_for('upload'))
 
