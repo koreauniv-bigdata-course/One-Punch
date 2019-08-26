@@ -106,8 +106,8 @@ def get_image(path):
     imgName = generator.filenames[0].split('/')[1]
     image = generator.next()[0][0]
 
-    # movePath = os.path.join(AFTER_PATH, imgName)
-    # shutil.copy(imgPath, movePath)
+    movePath = os.path.join(AFTER_PATH, imgName)
+    shutil.copy(imgPath, movePath)
     # shutil.move(imgPath, movePath)
     # os.remove(path)
 
