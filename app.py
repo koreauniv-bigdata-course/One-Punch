@@ -112,11 +112,9 @@ def lime():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/result/', methods=["GET","POST"])
+@app.route('/result/', methods=["POST"])
 def result():
-    if not session.get('id', None):
-        return redirect('/')
-    else:
+    if request.method == 'POST':
         image = request.files.get('file')
         filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
         filename = hashlib.md5(filename.encode('utf8')).hexdigest()
@@ -180,6 +178,8 @@ def result():
         }
         session.pop('id')
         return render_template('app.html', **data)
+    else:
+        return redirect('/')
 
 
 if __name__ == "__main__":

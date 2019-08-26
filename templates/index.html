@@ -126,8 +126,6 @@
             <div class="layer">
                 {{ dropzone.create(action='result') }}
                 {{ dropzone.load_js() }}
-{#                {{ dropzone.config() }}#}
-                {{ dropzone.config(redirect_url=url_for('result')) }}
             </div>
 
             <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
