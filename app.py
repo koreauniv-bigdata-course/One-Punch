@@ -180,7 +180,7 @@ def result():
         'origin_img_path': path
     }
     session.pop('id')
-    return render_template('app.html', **data)
+    return redirect('app.html', **data)
 
 
 if __name__ == "__main__":

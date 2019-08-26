@@ -126,7 +126,6 @@
             <div class="layer">
                 {{ dropzone.create(action='upload') }}
                 {{ dropzone.load_js() }}
-{#                {{ dropzone.config() }}#}
                 {{ dropzone.config(redirect_url=url_for('result')) }}
             </div>
 
