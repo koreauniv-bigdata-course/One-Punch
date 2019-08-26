@@ -31,6 +31,10 @@ app.config.update(
     DROPZONE_ALLOWED_FILE_TYPE='image',
     DROPZONE_MAX_FILE_SIZE=10000,
     DROPZONE_MAX_FILES=1,
+    DROPZONE_IN_FORM=True,
+    DROPZONE_UPLOAD_ON_CLICK=True,
+    DROPZONE_UPLOAD_ACTION='handle_upload',  # URL or endpoint
+    DROPZONE_UPLOAD_BTN_ID='submit',
 )
 dropzone.init_app(app)
 db.init_app(app)
@@ -111,9 +115,8 @@ def lime():
     return f'data:image/png;base64,{img}'
 
 
-@app.route('/result', methods=["GET","POST"])
+@app.route('/result', methods=["POST"])
 def result():
-    if request.method == 'POST':
         image = request.files.get('file')
         filename, ext = ''.join(image.filename.split('.')[:-1]), image.filename.split('.')[-1]
         filename = hashlib.md5(filename.encode('utf8')).hexdigest()
@@ -143,10 +146,7 @@ def result():
 
         beforePath = os.path.join(beforePath, filename + ext)
         cv2.imwrite(beforePath, prepareImage)
-
         session['image'] = image.read()
-    else:
-        return redirect('/')
 
 
 @app.route('/result_form', methods=["GET","POST"])
