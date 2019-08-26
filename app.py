@@ -91,6 +91,7 @@ def upload():
         cv2.imwrite(beforePath, prepareImage)
 
         session['image'] = image.read()
+        session['image_path'] = directory
     return render_template('index.html')
 
 
@@ -141,22 +142,6 @@ def lime():
 
 @app.route('/result/')
 def result():
-    image = ml_utils.get_image(session['id'])
-    # gradCamGrid = ml_utils.grad_cam(model, image)
-    # smoothGradGrid = ml_utils.smooth_grad(model, image)
-    # preds, temp, mask, features, out = ml_utils.lime(model, image)
-
-    # data = {
-    #     'origin_img': session['image'],
-    # 'preds': preds,
-    # 'temp': temp,
-    # 'mask': mask,
-    # 'features': features,
-    # 'gradCam': gradCamGrid,
-    # 'smoothGradGrid': smoothGradGrid,
-    # 'out': out
-    # }
-
     result_id = 2
 
     herb = Herb.query.filter_by(herb_id=result_id).first()
