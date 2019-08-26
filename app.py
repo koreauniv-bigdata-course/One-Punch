@@ -133,7 +133,6 @@ def result():
         path = os.path.join(directory, filename + ext)
         image.save(path)
         session['path'] = f"/static/{{session['id']}}/pre"+filename + ext
-
         prepareImage = ml_utils.prepare_image(path)
 
         beforePath = os.path.join(ml_utils.BEFORE_PATH, session['id'])
