@@ -71,7 +71,9 @@ def upload():
         ext = '.' + ext
 
         directory = os.path.join(ml_utils.PREPARE_PATH, session['id'])
+        print(directory)
         if not os.path.exists(directory):
+            print('1111')
             os.mkdir(directory)
 
         directory = os.path.join(directory, 'image')
