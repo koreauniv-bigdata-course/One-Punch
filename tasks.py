@@ -52,16 +52,14 @@ def load_image(path, session_id):
                                  samplewise_std_normalization=True)
     generator = dataGen.flow_from_directory(path,
                                             target_size=(224, 224),
-                                            batch_size=5,
+                                            batch_size=1,
                                             shuffle=False,
                                             class_mode="categorical")
 
-    for directory in generator.filenames:
-        # if directory.find(session_id) != -1:
+    for i, directory in enumerate(generator.filenames):
         image = generator.next()
-        print(directory.startswith(session_id))
-        if directory.startswith(session_id):
-            print('find!!')
+        filename = directory.split('\\')[-1]
+        if filename.startswith(session_id):
             break
     return image[0][0]
 
