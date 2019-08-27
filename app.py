@@ -65,7 +65,6 @@ def upload():
         # id = create_identifier(ip_addr, user_agent)
         if session.get('id') is None:
             id = str(uuid1())
-            print(id)
             session['id'] = id
         # path = make_folder(id)
 
