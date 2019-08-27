@@ -30,10 +30,6 @@ app.config.update(
     DROPZONE_REDIRECT_VIEW='result',
     DROPZONE_PARALLEL_UPLOADS=1,
     DROPZONE_TIMEOUT=5 * 60 * 1000
-    # DROPZONE_IN_FORM=True,
-    # DROPZONE_UPLOAD_ON_CLICK=True,
-    # DROPZONE_UPLOAD_ACTION='result',  # URL or endpoint
-    # DROPZONE_UPLOAD_BTN_ID='submit',
 )
 dropzone.init_app(app)
 db.init_app(app)
@@ -92,57 +88,18 @@ def herb_info(herb_id):
         'herb': herb,
         'category': category,
         'group_name': group_name,
-        'groups': groups,  # 튜플로 유사그룹 name, img_path가 담김
+        'groups': groups,
         'location_list': location_list,
-        'location_avg': (x_avg, y_avg),  # 백단에서 계산된 x, y좌표들의 평균
+        'location_avg': (x_avg, y_avg),
         'news_list': news_list
     }
     return data
 
 
-@app.route('/origin_image/')
-def origin_image():
-    image = load_image(UPLOADED_PATH, session['id'])
-
-    original_img = io.BytesIO()
-    plt.imshow(image)
-    plt.savefig(original_img, format='png')
-    original_img.seek(0)
-    original_img = base64.b64encode(original_img.getvalue()).decode()
-    plt.close()
-    return f'data:image/png;base64,{original_img}'
-
-
-@app.route('/lime/')
-def lime_image():
-    image = load_image(UPLOADED_PATH, session['id'])
-    label, temp, mask, features, res = lime(model, image)
-    feature_image = io.BytesIO()
-    plt.imshow(features)
-    plt.savefig(feature_image, format='png')
-    feature_image.seek(0)
-    feature_image = base64.b64encode(feature_image.getvalue()).decode()
-    plt.close()
-    return f'data:image/png;base64,{feature_image}'
-
-
-@app.route('/grad_cam/')
-def grad_image():
-    image = load_image(UPLOADED_PATH, session['id'])
-    grid = grad_cam(model, image, 1)
-    grad_img = io.BytesIO()
-    plt.imshow(grid)
-    plt.savefig(grad_img, format='png')
-    grad_img.seek(0)
-    grad_img = base64.b64encode(grad_img.getvalue()).decode()
-    plt.close()
-    return f'data:image/png;base64,{grad_img}'
-
-
 @app.route('/result/')
 def result():
     if session.get('id') is None:
-        return '먼저 이미지를 업로드해주세요.'
+        return render_template('attach.html')
 
     image = load_image(UPLOADED_PATH, session['id'])
 
@@ -189,6 +146,11 @@ def result():
 
 
 @app.errorhandler(404)
+def error_page(error):
+    return render_template('404.html')
+
+
+@app.errorhandler(504)
 def error_page(error):
     return render_template('404.html')
 
