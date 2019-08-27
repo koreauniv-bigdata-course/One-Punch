@@ -197,12 +197,7 @@ def load_model():
     return 'Model loaded'
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/upload/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def upload():
     if request.method == 'POST':
         ip_addr = request.remote_addr
@@ -222,7 +217,7 @@ def upload():
 
         # path = make_folder(path)
         image.save(os.path.join(UPLOADED_PATH, 'img', filename))
-
+    return render_template('index.html')
 
 def herb_info(herb_id):
     herb = Herb.query.filter_by(herb_id=herb_id).first()
