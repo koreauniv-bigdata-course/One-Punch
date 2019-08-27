@@ -57,8 +57,9 @@ def load_image(path, session_id):
                                             class_mode="categorical")
 
     for directory in generator.filenames:
+        # if directory.find(session_id) != -1:
         image = generator.next()
-        if directory.find(session_id) != -1:
+        if directory.startswith(session_id):
             print('find!!')
             break
     return image[0][0]
