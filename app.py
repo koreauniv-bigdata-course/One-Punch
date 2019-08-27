@@ -24,6 +24,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'static', 'uploads'),
 
     # Flask-Dropzone config:
+    DROPZONE_DEFAULT_MESSAGE='약재 이미지를 업로드해주세요.',
     DROPZONE_ALLOWED_FILE_TYPE='image',
     DROPZONE_MAX_FILE_SIZE=1024,
     DROPZONE_MAX_FILES=1,
