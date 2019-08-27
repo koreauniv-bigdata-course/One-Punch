@@ -197,7 +197,7 @@ def load_model():
     return 'Model loaded'
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         ip_addr = request.remote_addr
