@@ -208,19 +208,20 @@ def upload():
         ip_addr = request.remote_addr
         user_agent = request.headers.get('User-Agent')
 
-        id = create_identifier(ip_addr, user_agent)
+        # id = create_identifier(ip_addr, user_agent)
+        id = str(uuid1())
+        print(id)
         session['id'] = id
-        path = make_folder(id)
+        # path = make_folder(id)
 
         image = request.files.get('file')
-        filename, ext = id + ''.join(image.filename.split('.')[:-1]), '.' + image.filename.split('.')[-1]
-        filename = hashlib.md5(filename.encode('utf8')).hexdigest()
-        filename = filename + ext
+        # filename, ext = id + ''.join(image.filename.split('.')[:-1]), '.' + image.filename.split('.')[-1]
+        # filename = hashlib.md5(filename.encode('utf8')).hexdigest()
+        # filename = filename + ext
+        filename = id + '.' + image.filename.split('.')[-1]
 
-        path = make_folder(path)
-        image.save(os.path.join(path, filename))
-
-        # save_image(image, path)
+        # path = make_folder(path)
+        image.save(os.path.join(UPLOADED_PATH, 'img', filename))
 
 
 def herb_info(herb_id):
@@ -254,23 +255,68 @@ def herb_info(herb_id):
     return data
 
 
+@app.route('/origin_image/')
+def origin_image():
+    folder = os.path.join(UPLOADED_PATH, session['id'])
+    filename = os.listdir(folder)[0]
+    filename = folder + '\\' + filename
+
+    original_img = io.BytesIO()
+    origin = cv2.imread(filename)
+    origin = cv2.cvtColor(origin, cv2.COLOR_BGR2RGB)
+    plt.imshow(origin)
+    plt.savefig(original_img, format='png')
+    original_img.seek(0)
+    original_img = base64.b64encode(original_img.getvalue()).decode()
+    plt.close()
+    return f'data:image/png;base64,{original_img}'
+
+
+@app.route('/lime/')
+def lime_image():
+    print('lime', session['image'])
+    label, temp, mask, features, res = lime(model, np.array(session['image']))
+    feature_image = io.BytesIO()
+    plt.imshow(features)
+    plt.savefig(feature_image, format='png')
+    feature_image.seek(0)
+    feature_image = base64.b64encode(feature_image.getvalue()).decode()
+    plt.close()
+    return f'data:image/png;base64,{feature_image}'
+
+
+@app.route('/grad_cam/')
+def grad_image():
+    print('grad', session['image'])
+    grid = grad_cam(model, np.array(session['image']), 1)
+    grad_img = io.BytesIO()
+    plt.imshow(grid)
+    plt.savefig(grad_img, format='png')
+    grad_img.seek(0)
+    grad_img = base64.b64encode(grad_img.getvalue()).decode()
+    plt.close()
+    return f'data:image/png;base64,{grad_img}'
+
+
 @app.route('/result/')
 def result():
     if session.get('id') is None:
         return '먼저 이미지를 업로드해주세요.'
 
-    folder = os.path.join(UPLOADED_PATH, session['id'])
-    filename = os.listdir(folder)[0]
-    filename = folder + '\\' + filename
+    # folder = os.path.join(UPLOADED_PATH, 'img')
+    # for file in  os.listdir(folder):
+    #     if file.find(session['id']) != -1:
+    #         filename = file
+    # filename = folder + '\\' + filename
 
-    original_image = io.BytesIO()
-    origin = cv2.imread(filename)
-    origin = cv2.cvtColor(origin, cv2.COLOR_BGR2RGB)
-    plt.imshow(origin)
-    plt.savefig(original_image, format='png')
-    original_image.seek(0)
-    original_image = base64.b64encode(original_image.getvalue()).decode()
-    plt.close()
+    # origin_img = io.BytesIO()
+    # origin = cv2.imread(filename)
+    # origin = cv2.cvtColor(origin, cv2.COLOR_BGR2RGB)
+    # plt.imshow(origin)
+    # plt.savefig(origin_img, format='png')
+    # origin_img.seek(0)
+    # origin_img = base64.b64encode(origin_img.getvalue()).decode()
+    # plt.close()
 
     image = load_image(UPLOADED_PATH, session['id'])
 
@@ -296,17 +342,40 @@ def result():
     grad_image = base64.b64encode(grad_image.getvalue()).decode()
     plt.close()
 
-    herb = herb_info(class_index)
+    # herb = herb_info(1)
+    herb_id = 1
+    herb = Herb.query.filter_by(herb_id=class_index).first()
+    category = Category.query.filter_by(category_id=herb.category_id_fk).first()
+
+    group = SimilarityGroup.query.filter_by(group_id=herb.group_id_fk).first()
+    group_name = group.group_name
+    group_herbs = Herb.query.filter_by(group_id_fk=group.group_id).all()
+    groups = [(_.herb_name, _.image_path) for _ in group_herbs]
+
+    location_list = Location.query.filter_by(herb_id_fk=class_index).all()
+    x_avg, y_avg = 0., 0.
+    for x, y in [(location.pos_x, location.pos_y) for location in location_list]:
+        x_avg += x
+        y_avg += y
+    n = len(location_list)
+    x_avg /= n
+    y_avg /= n
+
+    news_list = News.query.filter_by(herb_id_fk=herb_id).all()[:3]
     data = {
-        # 'proba': proba,
-        'label': label,
         'features': f'data:image/png;base64,{feature_image}',
-        'result': res,
         'grad': f'data:image/png;base64,{grad_image}',
-        'original_image': f'data:image/png;base64,{original_image}'
+
+        'herb': herb,
+        'category': category,
+        'group_name': group_name,
+        'groups': groups,
+        'location_list': location_list,
+        'location_avg': (x_avg, y_avg),
+        'news_list': news_list
     }
 
-    return render_template('app.html', **data, **herb)
+    return render_template('app.html', **data)
 
 
 if __name__ == "__main__":

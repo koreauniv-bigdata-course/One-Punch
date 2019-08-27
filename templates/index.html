@@ -123,13 +123,14 @@
 
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
-                {#                <form action="{{ url_for('result_form') }}" enctype="multipart/form-data" method="post">#}
-{#                {{ dropzone.create(action='upload') }}#}
-                {{ dropzone.create(action='upload') }}
-                {#                    <input type="submit" id="submit" value="Upload">#}
-                {#                </form>#}
-{#                {{ dropzone.load_js() }}#}
+{#                <form action="{{ url_for('upload') }}" enctype="multipart/form-data" method="post">#}
+                    {#                {{ dropzone.create(action='upload') }}#}
+                    {{ dropzone.create(action='upload') }}
+{#                    <input type="submit" id="submit" value="Upload">#}
+{#                </form>#}
+                {#                {{ dropzone.load_js() }}#}
                 {{ dropzone.config(redirect_url=url_for('result')) }}
+{#                {{ dropzone.config() }}#}
             </div>
 
             <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">

@@ -2,6 +2,7 @@ import hashlib
 import os
 import shutil
 import time
+from uuid import uuid1
 
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
@@ -22,12 +23,13 @@ CLASSES = [
 
 
 def create_identifier(ip_addr, user_agent):
-    now = time.time()
-    addr = str(ip_addr) + str(now)
-    base = np.unicode("%s|%s".format((addr, user_agent), 'utf8', errors='replace'))
-    hsh = hashlib.md5()
-    hsh.update(base.encode("utf8"))
-    return hsh.hexdigest()
+    # now = time.time()
+    # addr = str(ip_addr) + str(now)
+    # base = np.unicode("%s|%s".format((addr, user_agent), 'utf8', errors='replace'))
+    # hsh = hashlib.md5()
+    # hsh.update(base.encode("utf8"))
+    # return hsh.hexdigest()
+    return uuid1()
 
 
 def make_folder(session_id):
@@ -53,14 +55,13 @@ def load_image(path, session_id):
                                             batch_size=5,
                                             shuffle=False,
                                             class_mode="categorical")
-    for directory in generator.filepaths:
-        id = directory.split('\\')[-2]
+
+    for directory in generator.filenames:
         image = generator.next()
-        if id == session_id:
-            image = image[0][0]
-            shutil.move(directory, AFTER_PATH)
+        if directory.find(session_id) != -1:
+            print('find!!')
             break
-    return image
+    return image[0][0]
 
 
 # TASK 3.
