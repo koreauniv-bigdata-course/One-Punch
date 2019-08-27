@@ -60,7 +60,6 @@ def load_image(path, session_id):
         image = generator.next()
         filename = directory.split('/')[-1]
         if filename.startswith(session_id):
-            print('find file')
             break
     return image[0][0]
 
