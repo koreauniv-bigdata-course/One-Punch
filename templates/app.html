@@ -101,83 +101,27 @@
     </table>
 
 
-{#{% endfor %}#}
+    {#{% endfor %}#}
 {% endblock %}
 
 
 <!--독성약재 map-->
 {% block map %}
-<div style="margin-top:-25px; heigth:22rem">
-    {% include "location.html" %}
-    <div id="chartdiv"></div>
-</div>
-{#{% endif %}#}
+    <div style="margin-top:-25px; heigth:22rem">
+        {% include "location.html" %}
+        <div id="chartdiv"></div>
+    </div>
 {% endblock %}
 
 
 <!--feature map-->
 {% block featuremap %}
-    {#    <script>#}
-    {#        $.ajax({#}
-    {#            type: "GET"#}
-    {#            , url: "/grad_cam/"#}
-    {##}
-    {#            , success: function(res) {#}
-    {#                var result = "<img src='" + res + "' width='100' height='100' />";#}
-    {#                $("#grad_cam").html(result);#}
-    {#            }#}
-    {##}
-    {#            , beforeSend: function() {#}
-    {#                //$('.wrap-loading').removeClass('display-none');#}
-    {#            }#}
-    {##}
-    {#            , complete: function() {#}
-    {#                //(이미지 감추기 처리)#}
-    {#                //$('.wrap-loading').addClass('display-none');#}
-    {#            }#}
-    {##}
-    {#            , error: function(e) {#}
-    {#                console.log(e);#}
-    {#            }#}
-    {#            //, timeout:100000 // "응답제한시간 ms"#}
-    {#        });#}
-    {##}
-    {#        $.ajax({#}
-    {#            type: "GET"#}
-    {#            , url: "/lime/"#}
-    {##}
-    {#            , success: function(res) {#}
-    {#                var result = "<img src='" + res + "' width='100' height='100' />";#}
-    {#                $("#lime").html(result);#}
-    {#            }#}
-    {##}
-    {#            , beforeSend: function() {#}
-    {#                //$('.wrap-loading').removeClass('display-none');#}
-    {#            }#}
-    {##}
-    {#            , complete: function() {#}
-    {#                //(이미지 감추기 처리)#}
-    {#                //$('.wrap-loading').addClass('display-none');#}
-    {#            }#}
-    {##}
-    {#            , error: function(e) {#}
-    {#                console.log(e);#}
-    {#            }#}
-    {#            //, timeout:100000 // "응답제한시간 ms"#}
-    {#        });#}
-    {#    </script>#}
-    {#    <div id="smooth_grad">#}
-    {#        <p>이미지를 로드하는 중입니다 ...</p>#}
-    {#    </div>#}
-    {#    <div id="lime">#}
-    {#        <p>이미지를 로드하는 중입니다 ...</p>#}
-    {#    </div>#}
     <img src="{{ features }}" width="210", height="auto", margin="auto" />
     <img src="{{ grad }}" width="210" height="auto", margin="auto" />
 {% endblock %}
 
 
-<!--뉴스 크로울링-->
+<!--뉴스 -->
 {% block news %}
     {% for news in news_list %}
         <ul>
