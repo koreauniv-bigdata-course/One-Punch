@@ -370,6 +370,7 @@ def result():
         'news_list': news_list
     }
 
+    session.clear()
     return render_template('app.html', **data)
 
 
