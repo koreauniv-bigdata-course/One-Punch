@@ -28,7 +28,7 @@ GRAPH_PAPER_PATH = os.path.join(basedir, 'static', 'uploads', 'gp', 'monun.jpg')
 def load_model(model_name):
     device = tf.test.gpu_device_name()
     with tf.device(device):
-        model = tf.keras.models.load_model(model_name)
+        model = tf.keras.models.load_model(model_name, )
     # model = tf.keras.models.load_model(model_name)
     return model
 

@@ -48,7 +48,7 @@ def load_image(path, session_id):
 
     for directory in generator.filenames:
         image = generator.next()
-        filename = directory.split('/')[-1]
+        filename = directory.split('\\')[-1]
         print(filename, session_id)
         if filename.startswith(session_id):
             print('find!')

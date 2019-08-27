@@ -1,7 +1,6 @@
 import base64
 import io
 
-import cv2
 import matplotlib.pyplot as plt
 from flask import Flask, request, session, render_template
 from flask_dropzone import Dropzone
@@ -177,7 +176,7 @@ def result():
     grad_image = base64.b64encode(grad_image.getvalue()).decode()
     plt.close()
 
-    herb = herb_info(class_index)
+    herb = herb_info(class_index+1)
     data = {
         'pred': pred[0][class_index],
         'original_img': f'data:image/png;base64,{original_img}',
@@ -187,6 +186,11 @@ def result():
 
     session.clear()
     return render_template('app.html', **data, **herb)
+
+
+@app.errorhandler(404)
+def error_page(error):
+    return render_template('404.html')
 
 
 if __name__ == "__main__":

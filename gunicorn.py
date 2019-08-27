@@ -13,6 +13,7 @@ preload_app = True
 # worker_class = "sync"
 # worker_connections = 1000
 # timeout = 60*60*2
+timeout = 120
 errorlog = os.path.join(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, 'logs'), 'server.log')
 
 # CRITICAL: 'CRITICAL', ERROR: 'ERROR', WARNING: 'WARNING', INFO: 'INFO', DEBUG: 'DEBUG', NOTSET: 'NOTSET',
