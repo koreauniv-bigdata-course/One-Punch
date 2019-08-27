@@ -56,10 +56,12 @@ def load_image(path, session_id):
                                             shuffle=False,
                                             class_mode="categorical")
 
-    for i, directory in enumerate(generator.filenames):
+    for directory in generator.filenames:
         image = generator.next()
         filename = directory.split('\\')[-1]
+        print(directory, filename, session_id)
         if filename.startswith(session_id):
+            print('find file')
             break
     return image[0][0]
 
