@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>독약한방</title>
     {{ dropzone.load_css() }}
-    {{ dropzone.load_js() }}
     {{ dropzone.style('border: 4px; min-height: 300px; min-width: 610px;') }}
+    {{ dropzone.load_js() }}
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap/bootstrap.min.css') }}">
+    <!-- Jquery-->
+    <link rel="stylesheet" href="{{ url_for('static',filename='js/jquery.slim.min.js') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon1.ico') }}">
     <style>
         header {
             position: relative;
@@ -57,18 +60,18 @@
                 display: none;
             }
         }
-        .dropzone{
-            background-color: #b4b4b4;
-            opacity: 0.7;
-        }
+            .dropzone{
+                background-color: #b4b4b4;
+                opacity: 0.7;
+            }
 
-        .dropzone .dz-preview {
+          .dropzone .dz-preview {
             position: relative;
             display: inline-block;
             vertical-align: middle;
             margin: 10px;
             min-height: 250px;
-            min-width: 550px;
+              min-width: 550px;
         }
 
         .dropzone .dz-preview .dz-image img {
@@ -101,21 +104,22 @@
         }
 
 
+
+
     </style>
 </head>
 
 <body>
 <header>
     <div class="overlay"></div>
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="{{ url_for('static',filename='img/back.mov') }}" type="video/mp4">
+    <video playsinline="playsinline" autoplay="autoplay" preload="auto" muted="muted" >
+        <source src="{{ url_for('static',filename='img/back2.mov') }}" type="video/mp4">
     </video>
     <div class="container h-75">
         <div class="d-flex h-50 text-center align-items-center">
             <div class="w-100 text-white">
-                <h1 class="display-3"><img src="{{ url_for('static', filename="img/logo1.png") }}" style="width:200px"></h1>
+                <a class="display-3" ><a href="./"><img src="{{ url_for('static', filename="img/logo1.png") }}" style="width:200px"></a></a>
                 <p class="lead mb-0"><img src="{{ url_for('static', filename="img/logo2.png") }}" style="width:200px"></p>
-                <button type="button" href=# class="btn btn-light btn-lg" style="border-radius: 25px; margin-top:20px; font-size: 12px; padding: 10px 25px;">Get started</button>
             </div>
         </div>
     </div>
@@ -123,22 +127,41 @@
 
         <div class="d-flex h-25 text-center align-items-center">
             <div class="layer">
-{#                <form action="{{ url_for('upload') }}" enctype="multipart/form-data" method="post">#}
-                    {#                {{ dropzone.create(action='upload') }}#}
-                    {{ dropzone.create(action='upload') }}
-{#                    <input type="submit" id="submit" value="Upload">#}
-{#                </form>#}
-                {#                {{ dropzone.load_js() }}#}
-                {{ dropzone.config(redirect_url=url_for('result')) }}
+                {{ dropzone.create(action='upload') }}
+
 {#                {{ dropzone.config() }}#}
+                {{ dropzone.config(redirect_url=url_for('result')) }}
             </div>
 
-            <div class="d-flex h-50 text-center align-items-center" style="position:relative; z-index: 2; margin:auto">
-                <img src="{{ url_for('static', filename="img/guid3.png") }}" style="margin-top: -8rem; opacity: 10"></div>
 
+            <div class="d-flex h-50 text-center align-items-center" style="position: absolute; z-index: 0">
+              <img src="{{ url_for('static', filename="img/guid4.png") }}" style="margin-top: -8rem; opacity: 10; margin-left: 12.8rem">
+            </div>
+
+            <div style="position: absolute; z-index: 100; left: 46rem; margin-top: -13.5rem">
+                 <a href="./"><button type="button" class="btn btn-outline-light" style="font-size:12px; margin-right:10px">Home</button></a>
+                <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#myModal" style="font-size:12px">Guid</button>
+            </div>
         </div>
     </div>
-</header>
-<script src="{{ url_for('static',filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" style="width: 100%; height: auto; margin: 0; padding: 0;">
+        <div class="modal-dialog modal-lg" style=" height: auto; min-height: 100%; border-radius: 0;">
+                <div class="modal-header" style="border: 0">
+                    <button type="button" class="close" data-dismiss="modal" style="color:white" href="#">&times;</button>
+                </div>
+                <div class="modal-body" style="border:none; opacity: 2">
+                  <img src="{{ url_for('static', filename="img/guidline1.png") }}" style="width:700px; margin-top:100px">
+                </div>
+                <div class="modal-footer" style="border: none">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static',filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 </body>
 </html>
