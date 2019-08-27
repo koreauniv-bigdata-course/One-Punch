@@ -204,16 +204,17 @@ def upload():
         user_agent = request.headers.get('User-Agent')
 
         # id = create_identifier(ip_addr, user_agent)
-        id = str(uuid1())
-        print(id)
-        session['id'] = id
+        if session.get('id') is None:
+            id = str(uuid1())
+            print(id)
+            session['id'] = id
         # path = make_folder(id)
 
         image = request.files.get('file')
         # filename, ext = id + ''.join(image.filename.split('.')[:-1]), '.' + image.filename.split('.')[-1]
         # filename = hashlib.md5(filename.encode('utf8')).hexdigest()
         # filename = filename + ext
-        filename = id + '.' + image.filename.split('.')[-1]
+        filename = session['id'] + '.' + image.filename.split('.')[-1]
 
         # path = make_folder(path)
         image.save(os.path.join(UPLOADED_PATH, 'img', filename))
