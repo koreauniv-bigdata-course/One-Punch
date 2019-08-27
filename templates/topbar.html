@@ -1,35 +1,133 @@
- <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
 
 
-                <div class="input-group">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <div class="input-group">
+        <img src="{{ url_for('static', filename="img/Dash.png") }}" style="width:160px;">
+    </div>
+
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href=# data-toggle="modal" data-target="#myModal3">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    사용 약관
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<!-- End of Topbar -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog" style="min-width: 100%;margin: 0;">
+        <!--Guid-->
+        <!--guid-->
+        <!-- Content Wrapper -->
+        <div style="margin-left:15%; margin-top:6%;">
+            <!-- Main Content -->
+            <div id="content" style="height:100%">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4 ">
+                            <div class="card border-danger mb-5 h-100 py-2" style="border-style: dashed; border-width: thick;  background-color: #ffffff;background-color: rgba( 255, 255, 255, 0.5 )">
+                                <div class="card-body" style="height:23rem;">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto" style="margin: auto; margin-bottom:-10px;">
+                                            <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">INPUT 약재사진에 대한 </p>
+                                            <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">러닝 결과의 정확도를 보여줍니다 </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xs-12 col-sm-6 col-md-6 mb-4">
+                            <div class="card border-danger mb-5 h-100 py-2" style="border-style: dashed; border-width: thick;  background-color: #ffffff;background-color: rgba( 255, 255, 255, 0.5 )">
+                                <div class="card-body" style="margin-bottom: -40px" >
+                                    <div class="row no-gutters align-items-center">
+                                        <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">약재에 대한 기본 정보를 보여줍니다</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-danger mb-5 h-100 py-2" style="border-style: dashed; border-width: thick;  background-color: #ffffff;background-color: rgba( 255, 255, 255, 0.5 )">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="row no-gutters align-items-center">
+                                            <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">Input 약재 사진에 대한 </p>
+                                            <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">Feature Map을 보여줍니다</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Content Row -->
+
+                    <div class="row" style="height: 20rem">
+                        <!-- Area Chart -->
+                        <div class="col-xs-12 col-sm-6 col-md-5 mb-4">
+                            <div class="card border-danger mb-5 h-100 py-2" style="border-style: dashed; border-width: thick;  background-color: #ffffff;background-color: rgba( 255, 255, 255, 0.5 ); height:18rem">
+                                <!-- Card Header - Dropdown -->
+
+                                <!-- Card Body -->
+                                <div class="card-body" >
+                                    <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">Input 약재 사진과 유사한</p>
+                                    <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">약재에 대한 정보를 제공합니다</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xs-12 col-sm-6 col-md-7 mb-4">
+                            <div class="card border-danger mb-5 h-100 py-2" style="border-style: dashed; border-width: thick;  background-color: #ffffff;background-color: rgba( 255, 255, 255, 0.5 ); height:18rem">
+                                <!-- Card Body -->
+                                <div class="card-body" style="height:18rem">
+                                    <p class="font-weight-bold text-danger" style="text-align: center; font-style: inherit">Input 약재의 서식지에 대한 정보를 제공합니다</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- /.container-fluid -->
 
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
+            </div>
+            <!-- End of Main Content -->
 
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                사용 약관
-                            </a>
-                        </div>
-                    </li>
 
-                </ul>
+        </div>
+        <!-- End of Content Wrapper -->
 
-            </nav>
-            <!-- End of Topbar -->
+
+        <!-- End of Page Wrapper -->
+
+        <!--end guid-->
+        <!--End Guid-->
+    </div>
+</div>

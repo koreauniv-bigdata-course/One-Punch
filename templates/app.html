@@ -5,14 +5,14 @@
 {% block herb %}
     <div class="row">
         <div class="col-xs-6 col-md-4">
-            <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="margin-top:-12px;font-size:20px; ">
+            <div class="text-s font-weight-bold text-uppercase mb-2" style="margin-top:-12px;font-size:20px; color:#a6a19d">
                 {{ herb.herb_name  }}
             </div>
         </div>
         <div class="col-xs-6 col-md-4">
-            <div class="text-s font-weight-bold text-success text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px;">
+            <div class="text-s font-weight-bold text-uppercase mb-2"  style="margin-top:-10px; margin-left: -35px; color:#a6a19d">
                 {% if herb.is_poison == 1 %}
-                    {{ "독성약재" }}
+                    독성약재
                 {% else %}
                     일반약재
                 {% endif %}
@@ -63,14 +63,6 @@
             </tbody>
         </table>
     </div>
-    {#        <ul>#}
-    {#            <li>{% if herb.is_poison == 1 %}{{ "독성약재입니다" }}{% else %}일반약재입니다.{% endif %}</li>#}
-    {#            <li>{{ "분류 : "+ category.category_name}}</li>#}
-    {#            <li>{{ "기원 : "+ herb.origin }}</li>#}
-    {#            <li>{{ "주치 : "+ herb.major_effect }}</li>#}
-    {#            <li>{{ "효능 :  "+ herb.effect | truncate(20) }}</li>#}
-    {#            <li>{{ "외관상 감별 : "+ herb.figure_feature | truncate(20) }}</li>#}
-    {#        </ul>#}
 {% endblock %}
 
 
@@ -81,7 +73,7 @@
             <canvas id="myPieChart" style="width:150px; margin:0px"></canvas>
             <div class="donut-inner">
                 <!--독성 확률 퍼센트 -->
-                <h5>90 %</h5>
+                <h5 style="font-size: 20px;">{{ pred }} %</h5>
             </div>
         </div>
     </div>
@@ -89,89 +81,99 @@
 
 <!--유사 약재 이미지-->
 {% block similar_images %}
-    {% for (name, img_path) in groups %}
-        {% if name != herb.herb_name %}
-            <img src="{{ img_path }}" alt="{{ img_path }}">
-            <li>{{ "유사약재 : "+ name}}</li>
-        {% endif %}
-    {% endfor %}
+    <table class="table table-borderless" style="margin-top:-7px;">
+        <thead>
+        <tr>
+            {% for name, img_path in groups %}
+                {% if name != herb.herb_name %}
+                    <th scope="col"><img src="{{ url_for('static', filename=img_path) }}" style="width:120px; height:100px"></th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for name, _ in groups %}
+                {% if name != herb.herb_name %}
+                    <td scope="col">{{ name }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+    </table>
+
+
+{#{% endfor %}#}
 {% endblock %}
 
 
 <!--독성약재 map-->
 {% block map %}
+<div style="margin-top:-25px; heigth:22rem">
     {% include "location.html" %}
-    {#    <p>좌표들의 평균 : {{ location_avg }}</p>#}
     <div id="chartdiv"></div>
-    {#    {% for location in location_list %}#}
-    {#        <ul>#}
-    {#            <li>{{ location.country}}&nbsp;{% if location.location_name %}{{location.location_name }}{% endif %}</li>#}
-    {#            <li>{{ location.pos_x }}</li>#}
-    {#            <li>{{ location.pos_y }}</li>#}
-    {#        </ul>#}
-    {#    {% endfor %}#}
+</div>
+{#{% endif %}#}
 {% endblock %}
 
 
 <!--feature map-->
 {% block featuremap %}
-{#    <script>#}
-{#        $.ajax({#}
-{#            type: "GET"#}
-{#            , url: "/grad_cam/"#}
-{##}
-{#            , success: function(res) {#}
-{#                var result = "<img src='" + res + "' width='100' height='100' />";#}
-{#                $("#grad_cam").html(result);#}
-{#            }#}
-{##}
-{#            , beforeSend: function() {#}
-{#                //$('.wrap-loading').removeClass('display-none');#}
-{#            }#}
-{##}
-{#            , complete: function() {#}
-{#                //(이미지 감추기 처리)#}
-{#                //$('.wrap-loading').addClass('display-none');#}
-{#            }#}
-{##}
-{#            , error: function(e) {#}
-{#                console.log(e);#}
-{#            }#}
-{#            //, timeout:100000 // "응답제한시간 ms"#}
-{#        });#}
-{##}
-{#        $.ajax({#}
-{#            type: "GET"#}
-{#            , url: "/lime/"#}
-{##}
-{#            , success: function(res) {#}
-{#                var result = "<img src='" + res + "' width='100' height='100' />";#}
-{#                $("#lime").html(result);#}
-{#            }#}
-{##}
-{#            , beforeSend: function() {#}
-{#                //$('.wrap-loading').removeClass('display-none');#}
-{#            }#}
-{##}
-{#            , complete: function() {#}
-{#                //(이미지 감추기 처리)#}
-{#                //$('.wrap-loading').addClass('display-none');#}
-{#            }#}
-{##}
-{#            , error: function(e) {#}
-{#                console.log(e);#}
-{#            }#}
-{#            //, timeout:100000 // "응답제한시간 ms"#}
-{#        });#}
-{#    </script>#}
-{#    <div id="smooth_grad">#}
-{#        <p>이미지를 로드하는 중입니다 ...</p>#}
-{#    </div>#}
-{#    <div id="lime">#}
-{#        <p>이미지를 로드하는 중입니다 ...</p>#}
-{#    </div>#}
-    <img src="{{ features }}" width="100", height="100" />
-    <img src="{{ grad }}" width="100" height="100" />
+    {#    <script>#}
+    {#        $.ajax({#}
+    {#            type: "GET"#}
+    {#            , url: "/grad_cam/"#}
+    {##}
+    {#            , success: function(res) {#}
+    {#                var result = "<img src='" + res + "' width='100' height='100' />";#}
+    {#                $("#grad_cam").html(result);#}
+    {#            }#}
+    {##}
+    {#            , beforeSend: function() {#}
+    {#                //$('.wrap-loading').removeClass('display-none');#}
+    {#            }#}
+    {##}
+    {#            , complete: function() {#}
+    {#                //(이미지 감추기 처리)#}
+    {#                //$('.wrap-loading').addClass('display-none');#}
+    {#            }#}
+    {##}
+    {#            , error: function(e) {#}
+    {#                console.log(e);#}
+    {#            }#}
+    {#            //, timeout:100000 // "응답제한시간 ms"#}
+    {#        });#}
+    {##}
+    {#        $.ajax({#}
+    {#            type: "GET"#}
+    {#            , url: "/lime/"#}
+    {##}
+    {#            , success: function(res) {#}
+    {#                var result = "<img src='" + res + "' width='100' height='100' />";#}
+    {#                $("#lime").html(result);#}
+    {#            }#}
+    {##}
+    {#            , beforeSend: function() {#}
+    {#                //$('.wrap-loading').removeClass('display-none');#}
+    {#            }#}
+    {##}
+    {#            , complete: function() {#}
+    {#                //(이미지 감추기 처리)#}
+    {#                //$('.wrap-loading').addClass('display-none');#}
+    {#            }#}
+    {##}
+    {#            , error: function(e) {#}
+    {#                console.log(e);#}
+    {#            }#}
+    {#            //, timeout:100000 // "응답제한시간 ms"#}
+    {#        });#}
+    {#    </script>#}
+    {#    <div id="smooth_grad">#}
+    {#        <p>이미지를 로드하는 중입니다 ...</p>#}
+    {#    </div>#}
+    {#    <div id="lime">#}
+    {#        <p>이미지를 로드하는 중입니다 ...</p>#}
+    {#    </div>#}
+    <img src="{{ features }}" width="210", height="auto", margin="auto" />
+    <img src="{{ grad }}" width="210" height="auto", margin="auto" />
 {% endblock %}
 
 

@@ -1,108 +1,182 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #684949;">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #384c39;">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div>
-                <img src="{{ url_for('static', filename="img/logo5.png") }}" style="width:30px; margin-right: 20px;">
-            </div>
-            <img src="{{ url_for('static', filename="img/logo4.png") }}" style="width:100px;">
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Interface
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../">
+        <div>
+            <img src="{{ url_for('static', filename="img/logo5.png") }}" style="width:30px; margin-right: 20px;">
         </div>
+        <img src="{{ url_for('static', filename="img/logo4.png") }}" style="width:100px;">
+    </a>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="../">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span></a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <!-- Heading -->
+    <div class="sidebar-heading" >
+        Dash
+    </div>
+
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Report</span></a>
+    </li>
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="sidebar-heading">
+        About
+    </div>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">
+            <i class="fas fa-fw fa-balance-scale-right"></i>
+            <span>Legal issues</span></a>
+    </li>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><img src="{{ url_for('static', filename="img/logo6.png") }}" style="width:100px;"></h4>
+                    <h4 class="modal-title" style="font-size: 16px; margin-top:auto"> &nbsp 사용 약관</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="margin: 20px;">
+                    <p style="color: #684949; font-size: 20px; font-weight: bolder">제1조(목적)</p>
+                    <p>이 이용약관(이하 '약관')은 Bootstrap RB shop (http://www.Bootstrap RB shop.com) (이하 회사라 합니다)와 이용 고객(이하 '회원')간에 회사가 제공하는 서비스의 가입조건 및 이용에 관한 제반 사항과 기타 필요한 사항을 구체적으로 규정함을 목적으로 합니다.</p>
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <p style="color: #684949; font-size: 20px; font-weight: bolder">제2조(이용약관의 효력 및 변경)</p>
+                    <p>① 이 약관은 본 회사에 가입된 고객을 포함하여 서비스를 이용하고자 하는 모든 이용자에 대하여 서비스 메뉴 및 회사에 게시하여 공시하거나 기타의 방법으로 고객에게 공지함으로써 그 효력을 발생합니다. 약관의 게시는 Bootstrap RB shop (http://www.Bootstrap RB shop.com) 사이트에서 확인 할 수 있습니다.
+                        ② 회사는 합리적인 사유가 발생될 경우에는 이 약관을 변경할 수 있으며, 약관을 변경할 경우에는 지체 없이 이를 사전에 공지합니다.</p>
+                    <hr class="sidebar-divider d-none d-md-block">
+
+                    <p style="color: #684949; font-size: 20px; font-weight: bolder">  제3조(약관외 준칙) </p>
+                    <p> 서비스 이용에 관하여는 이 약관을 적용하며 이 약관에 명시되지 아니한 사항에 대하여는 전기통신기본법, 전기통신사업법,정보통신망 이용촉진등에 관한 법률 및 기타 관계법령의 규정에 의합니다.</p>
+                    <hr class="sidebar-divider d-none d-md-block">
+                    <p style="color: #684949; font-size: 20px; font-weight: bolder"> 제4조(용어의 설명) </p>
+                    <p> ① 이 약관에서 사용하는 용어의 정의는 다음과 같습니다.
+                        1.'이용고객'이라 함은 회원제로 운영하는 서비스를 이용하는 이용자를 의미합니다.
+                        2.'이용계약'이라 함은 서비스 이용과 관련하여 회사와 이용고객 간에 체결 하는 계약을 말합니다.
+                        3.'이용자번호(ID)'라 함은 회원식별과 회원의 서비스 이용을 위하여 회원이 선정하고 회사가 승인하는 영문자와 숫자의 조합을 말합니다.
+                        4.'비밀번호'라 함은 이용고객이 부여 받은 이용자번호와 일치된 이용고객 임을 확인하고 이용고객의 권익보호를 위하여 이용고객이 선정한 문자와 숫자의 조합을 말합니다.
+                        5.'해지'라 함은 회사 또는 회원이 이용계약을 해약하는 것을 말합니다.
+                        ② 이 약관에서 사용하는 용어의 정의는 제1항에서 정하는 것을 제외하고는 관계법령 및 서비스별 안내에서 정하는 바에 의합니다.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-        </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span>Utilities</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Colors</a>
-                    <a class="collapse-item" href="utilities-border.html">Borders</a>
-                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="utilities-other.html">Other</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
         </div>
+    </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
+    <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal2">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Contact</span></a>
+    </li>
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="margin: 20px;">
+                    <div class="row">
+
+                        <!--Grid column-->
+                        <div class="col-md-9 mb-md-0 mb-5">
+                            <form id="contact-form" name="contact-form" >
+
+                                <!--Grid row-->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-6">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="name" name="name" class="form-control">
+                                            <label for="name" class="">Your name</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+
+                                    <!--Grid column-->
+                                    <div class="col-md-6">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="email" name="email" class="form-control">
+                                            <label for="email" class="">Your email</label>
+                                        </div>
+                                    </div>
+                                    <!--Grid column-->
+
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid row-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="md-form mb-0">
+                                            <input type="text" id="subject" name="subject" class="form-control">
+                                            <label for="subject" class="">Subject</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+
+                                <!--Grid row-->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+
+                                        <div class="md-form">
+                                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                                            <label for="message">Your message</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+
+                            </form>
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-3 text-center">
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                                    <p style="font-size: 15px">고려대학교 우정정보관 201호</p>
+                                </li>
+
+                                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                                    <p>+ 010 9655 8536</p>
+                                </li>
+
+                                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                                    <p>gmltn4993@gmail.com</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-bottom:-10px">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
+                    </div>
                 </div>
             </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
 
-    </ul>
+</ul>

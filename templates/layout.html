@@ -2,7 +2,8 @@
 <html lang="ko">
 
 <head>
-    <title>SB Admin 2 - Dashboard</title>
+    <title>독약한방</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon1.ico') }}">
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}">
@@ -20,9 +21,31 @@
             margin-bottom: 5px;
             margin-top: 0;
             font-size: 28px;
-            color: #4e73df;
+            color: #384c39;
+
             font-weight: bolder;
         }
+        .h1{
+            font-family: 'Caveat', cursive;
+        }
+        .border-left-primary {
+            border-left: .25rem solid #777b55!important;
+        }
+        .border-left-success {
+            border-left: .25rem solid #a6a19d!important;
+        }
+        .border-left-info {
+            border-left: .25rem solid #a6b497!important;
+        }
+        .text-primary {
+            color: #384c39!important;
+        }
+        a {
+            color: #008d62;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
 
     </style>
 
@@ -35,10 +58,7 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
             background-color: #ebebeb;
         }
-    </style>
 
-    <!-- Styles -->
-    <style>
         #chartdiv {
             width: 100%;
             height: 100%;
@@ -56,7 +76,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" >
 
 <!-- Page Wrapper -->
 
@@ -70,7 +90,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" style="height:100%">
             {# topbar #}
             {% include "topbar.html" %}
 
@@ -78,46 +98,19 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                {#          <div class="d-sm-flex align-items-center justify-content-between mb-4">#}
-                {#            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>#}
-                {#            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>#}
-                {#          </div>#}
 
                 <!-- Content Row -->
                 <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4 ">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body" style="height:23rem;">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto" style="margin: auto; margin-bottom:-10px;">
-{#                                        <script>#}
-{#                                            $.ajax({#}
-{#                                                type: "GET"#}
-{#                                                , url: "/origin_image/"#}
-{##}
-{#                                                , success: function(res) {#}
-{#                                                    var result = "<img src='" + res + "' width='100' height='100' />";#}
-{#                                                    $("#origin_image").html(result);#}
-{#                                                }#}
-{##}
-{#                                                , beforeSend: function() {#}
-{#                                                    //$('.wrap-loading').removeClass('display-none');#}
-{#                                                }#}
-{##}
-{#                                                , complete: function() {#}
-{#                                                    //(이미지 감추기 처리)#}
-{#                                                    //$('.wrap-loading').addClass('display-none');#}
-{#                                                }#}
-{##}
-{#                                                , error: function(e) {#}
-{#                                                    console.log(e);#}
-{#                                                }#}
-{#                                                //, timeout:100000 // "응답제한시간 ms"#}
-{#                                            });#}
-{#                                        </script>#}
-{#                                        <div id="origin_image">#}
-{#                                            <p>이미지를 로드하는 중입니다 ...</p>#}
-{#                                        </div>#}
+                                        <!--insert 약재이미지 block-->
+                                        {#                                        {% block main_image %}#}
+                                        {#                                        {% endblock %}#}
                                         <img src="{{ original_img }}" style="width:200px; height:150px; margin-bottom: 10px;">
                                     </div>
 
@@ -127,50 +120,40 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xs-12 col-sm-6 col-md-6 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body" style="margin-bottom: -40px" >
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    {% block herb %}
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xs-12 col-sm-6 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body" style="margin-bottom: -40px" >
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        {% block herb %}
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="text-s font-weight-bold text-uppercase mb-2" style="font-size:15px; margin-top:0px; color:#a6a19d;">유사약재</div>
+                                    <!--이미지-->
+                                    {% block similar_images %}
                                     {% endblock %}
                                 </div>
                             </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="text-s font-weight-bold text-success text-uppercase mb-2" style="font-size:15px; margin-top:0px;">유사약재</div>
-                                <!--이미지-->
-                                {#                                    {% block similar_images %}#}
-                                {#                                    {% endblock %}#}
-                                <table class="table table-borderless" style="margin-top:-7px;">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col"><img src="{{ url_for('static', filename="img/1.png") }}" style="width:120px; height:100px"></th>
-                                        <th scope="col"><img src="{{ url_for('static', filename="img/2.png") }}" style="width:120px; height:100px"></th>
-                                        <th scope="col"><img src="{{ url_for('static', filename="img/3.png") }}" style="width:120px; height:100px"></th>
-                                        <th scope="col"><img src="{{ url_for('static', filename="img/4.png") }}" style="width:120px; height:100px"></th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-info shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-s font-weight-bold text-info text-uppercase mb-1" style="margin-top:-12px;">Feature Map</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <!--Feature map-->
-                                            {% block featuremap %}
-                                            {% endblock %}
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-s font-weight-bold text-uppercase mb-1" style="margin-top:-12px; font-color:#a6b497">Feature Map</div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <!--Feature map-->
+                                                {% block featuremap %}
+                                                {% endblock %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -178,21 +161,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Content Row -->
+                <!-- Content Row -->
 
-            <div class="row">
-                <!-- Area Chart -->
-                <div class="col-xs-12 col-sm-6 col-md-5 mb-4">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">최신 뉴스</h6>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body" style="height:18rem">
-                            <div class="chart-area">
+                <div class="row" style="height: 20rem">
+                    <!-- Area Chart -->
+                    <div class="col-xs-12 col-sm-6 col-md-5 mb-4">
+                        <div class="card shadow mb-4" style="height:18rem">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary" style="font-color:#384c39">최신 뉴스</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body" >
+
                                 <!--feature map-->
                                 {% block news %}
                                 {% endblock %}
@@ -200,32 +182,29 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Pie Chart -->
-                <div class="col-xs-12 col-sm-6 col-md-7 mb-4">
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">서식지</h6>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body" style="height:18rem">
-                            <div class="chart-pie pt-4 pb-2">
-                                <!--서식지 크로울링-->
-                                {% block map %}
-                                {% endblock %}
-
+                    <!-- Pie Chart -->
+                    <div class="col-xs-12 col-sm-6 col-md-7 mb-4">
+                        <div class="card shadow mb-4" style="height:18rem">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">서식지</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body" style="height:18rem">
+                                <div class="chart-pie pt-4 pb-2">
+                                    {% block map %}
+                                    {% endblock %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
-<!-- /.container-fluid -->
+    </div>
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
@@ -236,6 +215,8 @@
 
 </div>
 <!-- End of Page Wrapper -->
+
+
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -257,22 +238,24 @@
 
 <!-- Page level custom scripts -->
 <script src="{{ url_for('static',filename='js/demo/chart-area-demo.js') }}"></script>
+
 {#<script src="{{ url_for('static',filename='js/demo/chart-pie-demo.js') }}"></script>#}
 <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
+    var pred = {{ pred }};
     // Pie Chart Example
     var ctx = document.getElementById("myPieChart");
     var myPieChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ["Direct", "Referral", "Social"],
+            labels: ["예측 결과", ""],
             datasets: [{
-                data: [90, 10],
-                backgroundColor: ['#4e73df', '#1cc88a'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673'],
+                data: [pred, 100-pred],
+                backgroundColor: ['#777b55', '#c3c5c8'],
+                hoverBackgroundColor: ['#777b55', '#c3c5c8'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },

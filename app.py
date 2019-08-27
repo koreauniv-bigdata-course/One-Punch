@@ -158,7 +158,7 @@ def result():
     pred = model.predict(img)
 
     # Lime
-    label, temp, mask, features, res = lime(model, image)
+    label, _, _, features, res = lime(model, image)
     feature_image = io.BytesIO()
     plt.imshow(features)
     plt.savefig(feature_image, format='png')
@@ -178,7 +178,7 @@ def result():
 
     herb = herb_info(class_index+1)
     data = {
-        'pred': pred[0][class_index],
+        'pred': round(pred[0][class_index] * 100, 2),
         'original_img': f'data:image/png;base64,{original_img}',
         'features': f'data:image/png;base64,{feature_image}',
         'grad': f'data:image/png;base64,{grad_image}',
