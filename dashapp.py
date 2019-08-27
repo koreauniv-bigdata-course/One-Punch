@@ -179,4 +179,4 @@ def update_figure(yaxis_column_name, selected_week):
 
 
 if __name__ == '__main__':
-    dashapp.run_server(port=8050)
+    dashapp.run_server(host='0.0.0.0', port=8050)
