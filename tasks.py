@@ -22,16 +22,6 @@ CLASSES = [
 ]
 
 
-def create_identifier(ip_addr, user_agent):
-    # now = time.time()
-    # addr = str(ip_addr) + str(now)
-    # base = np.unicode("%s|%s".format((addr, user_agent), 'utf8', errors='replace'))
-    # hsh = hashlib.md5()
-    # hsh.update(base.encode("utf8"))
-    # return hsh.hexdigest()
-    return uuid1()
-
-
 def make_folder(session_id):
     path = os.path.join(UPLOADED_PATH, session_id)
     if not os.path.exists(path):
@@ -47,9 +37,9 @@ def save_image(image, path):
 
 # TASK 2.
 def load_image(path, session_id):
-    dataGen = ImageDataGenerator(rescale=1. / 255,
-                                 samplewise_center=True,
-                                 samplewise_std_normalization=True)
+    dataGen = ImageDataGenerator(rescale=1. / 255)
+                                 # samplewise_center=True,
+                                 # samplewise_std_normalization=True)
     generator = dataGen.flow_from_directory(path,
                                             target_size=(224, 224),
                                             batch_size=1,
@@ -59,14 +49,18 @@ def load_image(path, session_id):
     for directory in generator.filenames:
         image = generator.next()
         filename = directory.split('/')[-1]
+        print(filename, session_id)
         if filename.startswith(session_id):
+            print('find!')
             break
     return image[0][0]
 
 
 # TASK 3.
-def predict_proba(model, image):
-    pass
+def predict(model, image):
+    img = np.expand_dims(image, axis=0)
+    pred = model.predict(img)
+    return pred[0][int(np.argmax(pred))]
 
 
 def lime(model, image):
@@ -76,6 +70,7 @@ def lime(model, image):
                                                 hide_rest=True)
     features = mark_boundaries(image, mask)
     label = explanation.top_labels[0]
+    print(label)
     result = CLASSES[label]
 
     return label, temp, mask, features, result
@@ -85,6 +80,6 @@ def grad_cam(model, image, class_index):
     data = ([image], None)
 
     explainer = GradCAM()
-    grid = explainer.explain(data, model.get_layer('resnet50'), 'res2a_branch2a', class_index)
+    grid = explainer.explain(data, model.get_layer('mobilenetv2_1.00_224'), 'block_16_expand', class_index)
 
     return grid
