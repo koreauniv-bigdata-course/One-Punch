@@ -17,7 +17,7 @@ CLASSES = [
     '우방자', '육종용', '파극천', '행인'
 ]
 
-
+'''
 def make_folder(session_id):
     path = os.path.join(UPLOADED_PATH, session_id)
     if not os.path.exists(path):
@@ -29,7 +29,7 @@ def save_image(image, path):
     if not os.path.exists(path):
         make_folder(path)
     image.save(path)
-
+'''
 
 def load_model(model_name):
     device = tf.test.gpu_device_name()
