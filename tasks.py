@@ -1,15 +1,11 @@
-import hashlib
 import os
-import shutil
-import time
-from uuid import uuid1
 
-from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
+import tensorflow as tf
+from keras.preprocessing.image import ImageDataGenerator
 from lime.lime_image import LimeImageExplainer
 from skimage.segmentation import mark_boundaries
 from tf_explain.core import GradCAM
-
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 UPLOADED_PATH = os.path.join(basedir, 'static', 'uploads')
@@ -35,11 +31,18 @@ def save_image(image, path):
     image.save(path)
 
 
+def load_model(model_name):
+    device = tf.test.gpu_device_name()
+    with tf.device(device):
+        model = tf.keras.models.load_model(model_name)
+    return model
+
+
 # TASK 2.
 def load_image(path, session_id):
     dataGen = ImageDataGenerator(rescale=1. / 255)
-                                 # samplewise_center=True,
-                                 # samplewise_std_normalization=True)
+    # samplewise_center=True,
+    # samplewise_std_normalization=True)
     generator = dataGen.flow_from_directory(path,
                                             target_size=(224, 224),
                                             batch_size=1,
@@ -79,10 +82,10 @@ def lime(model, image):
 def grad_cam(model, image, class_index):
     data = ([image], None)
 
-    # layer = 'mobilenetv2_1.00_224'
-    # layer_name = 'out_relu'
-    layer = 'resnet50'
-    layer_name = 'res5c_branch2c'
+    layer = 'mobilenetv2_1.00_224'
+    layer_name = 'out_relu'
+    # layer = 'resnet50'
+    # layer_name = 'res5c_branch2c'
 
     explainer = GradCAM()
     grid = explainer.explain(data, model.get_layer(layer), layer_name, class_index)

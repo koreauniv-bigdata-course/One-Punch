@@ -1,11 +1,12 @@
 import base64
 import io
+from uuid import uuid1
 
 import matplotlib.pyplot as plt
 from flask import Flask, request, session, render_template
 from flask_dropzone import Dropzone
 
-import ml_utils
+import tasks
 from admin import admin, HerbView, LocationView, CategoryView, SimilarityGroupView, NewsView, JournalView
 from models import db, Herb, Location, Category, SimilarityGroup, News, Journal
 from tasks import *
@@ -45,10 +46,10 @@ for table, view in zip(table_list, view_list):
 
 @app.before_first_request
 def load_model():
-    model_name = './models/maybe_best_model.h5'
+    model_name = './models/mobilenetv2.h5'
     global model
     if model is None:
-        model = ml_utils.load_model(model_name)
+        model = tasks.load_model(model_name)
     return 'Model loaded'
 
 
