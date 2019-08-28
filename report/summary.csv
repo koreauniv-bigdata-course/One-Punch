@@ -1,0 +1,2 @@
+﻿Base_Model,Pre_trained,Epoch,Early_Stopping,Learning_rate,Batch_size,Input_size,Optimizer,Loss,Accuracy
+MobileNet v2,O,20,19,LR scheduler,32,224,Adam,Cross Entropy,0.937

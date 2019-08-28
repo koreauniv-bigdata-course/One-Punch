@@ -1,4 +1,5 @@
 ﻿Index,Date,Week,Name,Accuracy,Recall,F1_score,Network,vgg_ac,res_ac,mobile_ac,den_ac,Base_Model,Pre_trained,Batch_size,Epochs,Raw_Epochs,Learning_Rate,lr_detail,Optimizer,Criterion,Training_Loss,Validation_Loss,Data,Train_count,Test_count,Validation_count,Tester,Framework,colab_url,weight_url,csv,"Model_Unique_Explanation
+<<<<<<< HEAD
 (Summay)",Summary
 1,2019-08-06,1,pure_vgg16,33.3,33.3,33.33,VGGNet,33.3,0,0,0,VGG16,FALSE,4,1,1,0.001,0.001,Adam,Cross_entropy,-,-,줄기,480,120,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1fqY3si0SlqMYtto8-1pXZFloZnhtK55V,https://drive.google.com/open?id=1-3J6fNU1LdDaaLOxn8rVt8hhxMyC7V-K,,-,-
 4,2019-08-07,1,resnet_pre-trained-5epochs,66.7,66.7,66.7,ResNet,33.3,66.7,0,0,ResNet50,TRUE,4,5,5,0.001,0.001,Adam,Cross_entropy,0.065,-,씨앗A,800,198,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1OpgBYDgT6bLpJ6_zyss5kjv_Tt9rzKuR,https://drive.google.com/open?id=1g4wcUGQFR_YWHhY3eiEifAQRviGDQzcy,,-,- 
@@ -12,12 +13,28 @@
 14,2019-08-19,2,pre_DenseNet201_train(Aug),84,84.6,85.1,DenseNet,83,81,87,84,DenseNet201,TRUE,32,13,13,0.001,0.001,Adam,Cross_entropy,0.038,-,Aug,21038,5550,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1FQ8R5176uIKm9YUwO2-wo0NVC1n32gsS,https://drive.google.com/open?id=1-_kzLDCdvpgbxDRQ2_9Q1Tr6CNMzAE_j,,,"10 epoch에서 실수로 더 돌려서 13에폭됨. 
 10 에폭도 저장해놓음"
 17,2019-08-19,3,resnet50_early_stopping,88,87,87.2,ResNet,83,88,87,84,ResNet50,TRUE,32,14,20,0.0005,0.0005,Adam,Cross_entropy,0.019,0.2244,total2,3780,380,378,Jongik Park,pytorch,https://drive.google.com/open?id=1jxoK-RBRXIe7TIpdDtXsVOXT6NUy4yN-,https://drive.google.com/open?id=1tKqnD3T33Dq3haijTMxs4cx_0FTjebij,,,도인이 10/18 로 55% ㅠㅠ
+=======
+(Summay)",Summary
+1,2019-08-06,1,pure_vgg16,33.3,33.3,33.33,VGGNet,33.3,0,0,0,VGG16,FALSE,4,1,1,0.001,0.001,Adam,Cross_entropy,-,-,줄기,480,120,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1fqY3si0SlqMYtto8-1pXZFloZnhtK55V,https://drive.google.com/open?id=1-3J6fNU1LdDaaLOxn8rVt8hhxMyC7V-K,,-,-
+4,2019-08-07,1,resnet_pre-trained-5epochs,66.7,66.7,66.7,ResNet,33.3,66.7,0,0,ResNet50,TRUE,4,5,5,0.001,0.001,Adam,Cross_entropy,0.065,-,씨앗A,800,198,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1OpgBYDgT6bLpJ6_zyss5kjv_Tt9rzKuR,https://drive.google.com/open?id=1g4wcUGQFR_YWHhY3eiEifAQRviGDQzcy,,-,- 
+7,2019-08-08,1,fixed_vgg16,60,60.7,60.8,VGGNet,60,66.7,0,0,VGG16,FALSE,4,5,5,0.001,0.001,Adam,Cross_entropy,-,-,단면A,800,200,0,Jongik Park,pytorch,https://drive.google.com/open?id=19X1lW70aZlMqjNLFgki0dgNNyZs0hsni,https://drive.google.com/open?id=1F6caX-hfMUCjNfMArNiuJNF-SLDXboXm,,,- fixed임에도 불구하고 단면은 good
+8,2019-08-09,1,pre_resnet18,81,81.4,82,ResNet,60,81,0,0,ResNet18,TRUE,4,5,5,0.001,0.001,Adam,Cross_entropy,0.019,-,Total,2560,638,0,Jongik Park,pytorch,https://drive.google.com/open?id=1CvY4ftc0dJ6mR3F8GGrz8JcigSZwnTwD,https://drive.google.com/open?id=1DOqA7-0EWp_I2zU1ctuLzRiLYcYyvi1u,,,-
+9,2019-08-10,1,fixed_densenet201,80,80,80,DenseNet,60,81,0,80,DenseNet201,FALSE,4,5,5,0.001,0.001,Adam,Cross_entropy,0.013,-,씨앗A,800,198,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1OpgBYDgT6bLpJ6_zyss5kjv_Tt9rzKuR,https://drive.google.com/open?id=1g4wcUGQFR_YWHhY3eiEifAQRviGDQzcy,,,
+10,2019-08-13,2,MobileNet-v2,63,64.3,65,MobileNet-v2,60,81,63,80,MobileNet-v2,TRUE,10,10,10,0.0005,0.0005,Adam,Cross_entropy,0.009,-,Total,2560,638,0,Jongik Park,pytorch,https://drive.google.com/open?id=1sMRJ2XMgHUsmyU7fxp8pJ--JGvxAmhxR,https://drive.google.com/open?id=1t_8wRHTWlVNLvKNkNArbiw9vd3sPfG7t,,,- 모바일에서도 연동 가능한 모델 사용
+11,2019-08-16,2,mobileNet-v2,87,87.3,86.4,MobileNet-v2,60,81,87,80,MobileNet-v2,TRUE,128,10,10,0.0005,0.0005,Adam,Cross_entropy,0.064,-,Aug,21038,4979,0,Yujeong Lee,pytorch,https://drive.google.com/open?id=1UhzBiX1gwF_ZGrhsoULf3TiS77zuDuOj,https://drive.google.com/open?id=1-2a4VONCnuTuubID7vGP2mqZ11VhmsTy,,,-
+12,2019-08-17,2,fixed_densenet201,74,77.7,78.3,DenseNet,60,81,87,74,DenseNet201,FALSE,32,10,10,0.0005,0.0005,Adam,Cross_entropy,0.064,-,Aug,21038,4979,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1UhzBiX1gwF_ZGrhsoULf3TiS77zuDuOj,https://drive.google.com/open?id=1-2a4VONCnuTuubID7vGP2mqZ11VhmsTy,,,
+13,2019-08-18,2,pre_vgg16,81,80.4,80.7,MobileNet-v2,83,81,87,74,VGG16,TRUE,32,10,10,0.0005,0.0005,Adam,Cross_entropy,0.064,-,Aug,21038,4979,0,Yujeong Lee,pytorch,https://drive.google.com/open?id=1UhzBiX1gwF_ZGrhsoULf3TiS77zuDuOj,https://drive.google.com/open?id=1-2a4VONCnuTuubID7vGP2mqZ11VhmsTy,,,
+14,2019-08-19,2,pre_DenseNet201_train(Aug),84,84.6,85.1,DenseNet,83,81,87,84,DenseNet201,TRUE,32,13,13,0.001,0.001,Adam,Cross_entropy,0.038,-,Aug,21038,5550,0,Jinhyo Shin,pytorch,https://drive.google.com/open?id=1FQ8R5176uIKm9YUwO2-wo0NVC1n32gsS,https://drive.google.com/open?id=1-_kzLDCdvpgbxDRQ2_9Q1Tr6CNMzAE_j,,,"10 epoch에서 실수로 더 돌려서 13에폭됨. 
+10 에폭도 저장해놓음"
+17,2019-08-19,3,resnet50_early_stopping,88,87,87.2,ResNet,83,88,87,84,ResNet50,TRUE,32,14,20,0.0005,0.0005,Adam,Cross_entropy,0.019,0.2244,total2,3780,380,378,Jongik Park,pytorch,https://drive.google.com/open?id=1jxoK-RBRXIe7TIpdDtXsVOXT6NUy4yN-,https://drive.google.com/open?id=1tKqnD3T33Dq3haijTMxs4cx_0FTjebij,,,도인이 10/18 로 55% ㅠㅠ
+>>>>>>> origin/master
 19,2019-08-20,3,mobileNet-v2_early,88,89,89.1,MobileNet-v2,83,88,87,84,MobileNet-v2,TRUE,32,20,20,0.0005,0.0005,Adam,Cross_entropy,0.08158,0.35017,total2,3780,380,378,Yujeong Lee,pytorch,"처음 10에폭 
 https://drive.google.com/open?id=1ip7c3FZwGFnctyBcLiUxElKaTQvIBt2m
 11-20에폭 
 https://drive.google.com/open?id=1gCfkkIiMH3K9Mo_Vkt2M6wblafRk4UYy","10에폭https://drive.google.com/open?id=1daGHx2cPBH63IxIuUbC41ephry9kTLyJ
 20에폭 
 https://drive.google.com/open?id=1O7enXrZngt6llFvA3Xj3i5IyvMih7QDm
+<<<<<<< HEAD
 ",,,총 20에폭. 10에폭 저장하고 다시 10에폭 돌림
 22,2019-08-21,3,ResNet50_Aug,73,75.9,76.2,ResNet,83,73,87,84,ResNet50,TRUE,32,10,10,lr_scheduler,lr_scheduler,Adam,Cross_entropy,0.77736,0.6433,TotalA,9030,380,1134,Jongik Park,pytorch,https://drive.google.com/open?id=12LvtwehoaFY-uKi0xC_SX3wdtEiS-vsQ,https://drive.google.com/open?id=1Ixj1FDybwQ3rMmsqd4hZnyWjhh4DI0kn,,,"test_aug 498/736 67%
 아예 못맞치는게 존재.... 
@@ -43,3 +60,30 @@ https://drive.google.com/open?id=1O7enXrZngt6llFvA3Xj3i5IyvMih7QDm
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+=======
+",,,총 20에폭. 10에폭 저장하고 다시 10에폭 돌림
+22,2019-08-21,3,ResNet50_Aug,73,75.9,76.2,ResNet,83,73,87,84,ResNet50,TRUE,32,10,10,lr_scheduler,lr_scheduler,Adam,Cross_entropy,0.77736,0.6433,TotalA,9030,380,1134,Jongik Park,pytorch,https://drive.google.com/open?id=12LvtwehoaFY-uKi0xC_SX3wdtEiS-vsQ,https://drive.google.com/open?id=1Ixj1FDybwQ3rMmsqd4hZnyWjhh4DI0kn,,,"test_aug 498/736 67%
+아예 못맞치는게 존재.... 
+2. 관목통 4. 나복자 
+10. 목통 15. 우방자"
+25,2019-08-22,3,Mobilenet v2 (std),92.8,92.8,92.9,MobileNet-v2,83,88,92.8,84,MobileNet-v2,TRUE,64,23,23,lr_scheduler,initial : 0.001 0.8decay/5epochs,Adam,Cross_entropy,0.061,0.095,TotalA,9030,759,1134,Yujeong Lee,Keras,https://colab.research.google.com/drive/1pGLbP5jwKEmOn5s3rurqEJvN3zgU5h3D,https://drive.google.com/open?id=1--0QYgbXVQvBYdnaaNGXTJhyG3Eaz0tJ,,,"시간 관계상 history는 저장을 못했지만
+학습이 아주 잘되었음"
+37,2019-08-24,3,stdX_TotalB_resnet50,93.1,92.7,92.6,ResNet,83,93.1,92.8,84,ResNet50,TRUE,32,23,30,lr_scheduler,initial : 0.001 0.8decay/5epochs,Adam,Cross_entropy,0.3704,0.4729,TotalB,9877,414,1486,Jongik Park,Keras,https://drive.google.com/open?id=1_xmeQPElyTcMLBE4XyO4jOeqg6MrblWW,https://drive.google.com/open?id=1-34u1C2b8DwiAGBThUP5Ou0C3lgQ1Tma,https://drive.google.com/open?id=1CtUPcAiJEuWY7MdmdFP90C1VRNmyj92v,,TotalB 표준화 X
+25,2019-08-26,3,Mobilenet v2 (std),93.7,93.7,93.7,MobileNet-v2,83,93.1,93.7,84,MobileNet-v2,TRUE,32,17,30,lr_scheduler,initial : 0.001 0.8decay/5epochs,Adam,Cross_entropy,0.2138,0.3253,TotalB,9877,414,1486,Yujeong Lee,Keras,https://colab.research.google.com/drive/1pGLbP5jwKEmOn5s3rurqEJvN3zgU5h3D,https://drive.google.com/open?id=1--0QYgbXVQvBYdnaaNGXTJhyG3Eaz0tJ,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+>>>>>>> origin/master
