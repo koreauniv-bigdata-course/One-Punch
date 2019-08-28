@@ -82,10 +82,10 @@ def lime(model, image):
 def grad_cam(model, image, class_index):
     data = ([image], None)
 
-    layer = 'mobilenetv2_1.00_224'
-    layer_name = 'out_relu'
-    # layer = 'resnet50'
-    # layer_name = 'res5c_branch2c'
+    # layer = 'mobilenetv2_1.00_224'
+    # layer_name = 'out_relu'
+    layer = 'resnet50'
+    layer_name = 'res5c_branch2c'
 
     explainer = GradCAM()
     grid = explainer.explain(data, model.get_layer(layer), layer_name, class_index)
