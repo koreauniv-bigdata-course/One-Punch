@@ -46,7 +46,7 @@ for table, view in zip(table_list, view_list):
 
 @app.before_first_request
 def load_model():
-    model_name = './models/mobilenetv2.h5'
+    model_name = './models/maybe_best_model.h5'
     global model
     if model is None:
         model = tasks.load_model(model_name)
