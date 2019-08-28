@@ -7,50 +7,66 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
 
-
-########## Report
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 dashapp = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-df = pd.read_csv('./report/time_series2.csv')
+def generate_table(dataframe, max_rows=26):
+    return html.Table(
+        # Header
+        [html.Tr([html.Th(col) for col in dataframe.columns]) ] +
+        # Body
+        [html.Tr([
+            html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
+        ]) for i in range(min(len(dataframe), max_rows))]
+    )
+
+
+df = pd.read_csv('./report/time_series.csv')
 df = df[:16]
 
 lr = pd.read_csv('./report/learning_curve.csv')
-# df["Date"] = df["Date"].str.replace("-", "")
-# df["Date"] = df["Date"].astype("int64")
+summary = pd.read_csv("./report/summary.csv")
 
-measure =  np.array(["Accuracy","Recall", "F1_score"])
+measure = np.array(["Accuracy","Recall", "F1_score"])
 
 dashapp.layout = html.Div([
     # learning_curve
     html.Div([
-        html.Div([html.H2("Final Model : MobileNet V2")], style={"text-align": "center"}),
-        html.Div([html.H3("Architecture")], style={"text-align": "center"}),
+        html.Div([html.H2("Final Model : MobileNet v2")], style={"text-align": "center"}),
+        html.Div([html.H3("1. 구조")], style={"text-align": "left"}),
         html.Div([html.Img(src="/static/temp/architecture.PNG", width=800, height=300, style={"text-align": "center"})]),
-        html.Div([html.Br()]),
-        html.Div([html.H3("Depthwise Separable Convolution")], style={"text-align": "center"}),
-        html.Div([html.Img(src="/static/temp/DSC1.png", width=800, height=300, style={"text-align": "center"})]),
-        html.Div([html.Br()]),
-        html.Div([html.H3("Inverted Residuals")], style={"text-align": "center"}),
-        html.Div([html.Img(src="/static/temp/Inverted Residuals.png", width=800, height=300, style={"text-align": "center"})]),
+        html.Div([html.P("최종 모델 MobileNet v2의 Computation Graph")]),
+        html.Div([html.P("Pre-trained된 MobileNet v2를 통해 Transfer Learning을 시행")]),
+
         html.Div([html.Br()]),
 
-        html.Div([html.Hr()]),
-        html.Div([html.H3("Learning Curve")], style={"text-align": "center"}),
+        html.Div([html.H3("2. 특징")], style={"text-align": "left"}),
+        html.Div([html.H4("1) Depthwise Separable Convolution")], style={"text-align": "left"}),
+        html.Div([html.Img(src="/static/temp/DSC1.png", width=800, height=300, style={"text-align": "center"})]),
+        html.Div([html.Br(),
+                  html.P("Depthwise Separable Convolution(DSC)을 하였을 경우 기존 Standard Convolution보다 8~9배 수준의 속도 향상"),
+                  html.Br()]),
+        html.Div([html.H4("2) Inverted Residual")], style={"text-align": "left"}),
+        html.Div([html.Img(src="/static/temp/Inverted Residuals.png", width=800, height=300, style={"text-align": "center"})]),
+        html.Div([html.Br()]),
+        html.Div([html.P("기존의 bottlenect은 채널 감소 -> 학습(DSC) -> 채널 복구 형태였지만,"),
+                  html.P("Inverted Residual은 채널 감소 -> 학습(DSC) -> 채널 감소 방식으로 메모리가 효율적으로 사용됨"),
+                  html.Br()]),
+
+        html.Div([html.H4("3. Learning Curve")], style={"text-align": "left"}),
 
         html.Div(dcc.Graph(id="my-lr")),
 
         html.Div([dcc.RangeSlider(id='lr-slider', min=1, max=lr['lr_scheduler'].max(),
                                   marks={1: '1', 2: '2', 3: '3', 4: '4'}, value=[1, 4])
-                  ], style={"margin": 10, "padding": 10})
-    ], className="container"),
-    html.Div([html.H5("Learning Rate Scheduler")], style={"text-align": "center"}),
-    html.Div([html.P("initial : 0.001, decay_steps : 5, decay_rate=0.8")], style={"text-align": "center"}),
+                  ], style={"margin": 10, "padding": 10}),
+        html.Div([html.H5("Learning Rate Scheduler")], style={"text-align": "center"}),
+        html.Div([html.P("initial : 0.001, decay_steps : 5, decay_rate=0.8")], style={"text-align": "center"}),
+        html.Div([html.Br()]),
+        html.Div([html.H4("4. Model Summary")]),
+        generate_table(summary)]),
     html.Div([html.Br()]),
-    html.Div([html.Br()]),
-
     html.Div([html.Hr()]),
 
     # Accuracy
@@ -59,11 +75,12 @@ dashapp.layout = html.Div([
         html.Div(dcc.Graph(id="my-accuracy")),
 
         html.Div([dcc.RangeSlider(id='week-slider1', min=1, max=df['Week'].max(),
-                                  marks={1: '8월 첫째 주', 2: '8월 둘째 주', 3: '8월 셋째 주'}, value=[1, 3])
+                                  marks={1: '1', 2: '2', 3: '3'}, value=[1, 3])
                   ], style={"margin": 20, "padding": 30})
     ], className="container"),
     html.Div([html.P("Project Week")], style={"text-align": "center"}),
-    html.Div([html.Br()]),
+    html.Div([html.P("프로젝트 기간 Network별 Accuracy의 변화"),
+              html.Br()]),
     html.Div([html.Br()]),
 
     html.Div([html.Hr()]),
@@ -85,11 +102,12 @@ dashapp.layout = html.Div([
     html.Div([dcc.RangeSlider(id='week-slider2',
                               min=1,
                               max=df['Week'].max(),
-                              marks={1: '8월 첫째 주', 2: '8월 둘째 주', 3: '8월 셋째 주'}, value=[1, 3])
+                              marks={1: '1', 2: '2', 3: '3'}, value=[1, 3])
               ], style={"margin": 20, "padding": 30}),
 
     html.Div([html.P("Project Week")], style={"text-align": "center"}),
-    html.Div([html.Br()]),
+    html.Div([html.P("프로젝트 기간 Measure의 변화"),
+              html.Br()]),
     html.Div([html.Br()]),
 
     html.Div([html.Hr()])
@@ -168,9 +186,8 @@ def update_figure(yaxis_column_name, selected_week):
 
     return {"data": data,
             "layout": go.Layout(
-                title=f"Week Accuracy for {'-'.join(str(i) for i in selected_week)}",
-                yaxis={"title": "% of Measure", "range": [20, 100],
-                       "tick0": 0, "dtick": 10},
+                yaxis={"title": f"{yaxis_column_name}", "range": [0.2, 1],
+                       "tick0": 0, "dtick": 0.1},
                 xaxis={"title": "Date", "tickangle": 45},
                 margin={'l': 40, 'b': 40, 't': 10, 'r': 0},
                 hovermode='closest'
