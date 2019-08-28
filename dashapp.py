@@ -74,7 +74,7 @@ dashapp.layout = html.Div([
         html.Div([html.H3("Accuracy by Model")], style={"text-align": "center"}),
         html.Div(dcc.Graph(id="my-accuracy")),
 
-        html.Div([dcc.RangeSlider(id='week-slider1', min=1, max=df['Week'].max(),
+        html.Div([dcc.RangeSlider(id='week-slider2', min=1, max=df['Week'].max(),
                                   marks={1: '1', 2: '2', 3: '3'}, value=[1, 3])
                   ], style={"margin": 20, "padding": 30})
     ], className="container"),
@@ -99,7 +99,7 @@ dashapp.layout = html.Div([
     html.Div([html.Br()]),
     dcc.Graph(id='my-graph'),
 
-    html.Div([dcc.RangeSlider(id='week-slider2',
+    html.Div([dcc.RangeSlider(id='week-slider1',
                               min=1,
                               max=df['Week'].max(),
                               marks={1: '1', 2: '2', 3: '3'}, value=[1, 3])
